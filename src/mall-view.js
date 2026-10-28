@@ -263,10 +263,10 @@ V.createMallView=function(opts){
     for(var l=1;l<=3;l++)levelGroups[l].visible=(c===0)||l<=c;
     roofGroup.children.forEach(function(r){r.visible=(c===0)});
     vault.visible=true;vault.children.forEach(function(v){});
-    Object.keys(stores).forEach(function(id){var o=stores[id];var vis=(c===0)||o.lvl<=c;
+    Object.keys(stores).forEach(function(id){var o=stores[id];
       if(o.anchor){var h=Math.min(o.s.floors,c===0?o.s.floors:Math.max(c,1))*FH;if(h!==o.height){o.height=h;o.body.scale.y=h/(o.s.floors*FH);o.body.position.y=o.y0+h/2;o.roofCap.position.y=o.y0+h+.4;o.sign.position.y=o.y0+Math.min(h-3.2,5.5)+1.3;o.pick.scale.y=(h+1)/(o.s.floors*FH+1);o.pick.position.y=o.y0+(h+1)/2*(1)}}
       if(o.label){o.label.visible=c!==0;o.label.position.y=o.y0+(o.anchor?o.height+3:5.8)}
-      o.visibleNow=vis&&c!==0});
+      o.visibleNow=c!==0&&(o.lvl===c||(o.anchor&&o.lvl<=c))});
     escGroups.forEach(function(g){g.visible=c!==0&&g.userData.lvl<=c});
     outsideEnt.forEach(function(g){g.visible=true});
     updatePickList();
@@ -317,8 +317,8 @@ V.createMallView=function(opts){
       var cp=camera.position;Object.keys(stores).forEach(function(id){var o=stores[id];if(!o.label)return;
         if(cut===0){o.label.visible=false;return}
         var d=Math.hypot(cp.x-(o.s.x+o.s.w/2),cp.y-o.y0,cp.z-(o.s.z+o.s.d/2));
-        o.label.visible=o.visibleNow&&(o.anchor||(o.state?d<420:d<130));
-        var h=Math.max(o.anchor?5:2.6,Math.min(o.anchor?16:9,d*(o.anchor?.034:.02)));o.label.scale.set(h*512/96,h,1)});
+        var fly=cam&&cam.mode==="freefly";o.label.visible=o.visibleNow&&(fly?d<70&&(!!o.state||d<30):(o.anchor||(o.state?d<420:d<130)));
+        var h=Math.max(o.anchor?5:1.8,Math.min(o.anchor?16:8,d*(o.anchor?.034:.014)));o.label.scale.set(h*512/96,h,1)});
       renderer.render(scene,camera)}
   };
   setCut(1);api.setTheme("day");
