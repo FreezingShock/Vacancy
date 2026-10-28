@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Vacancy camera demo</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>html,body{margin:0;height:100%;overflow:hidden;background:#efe3cc;font:13px/1.4 system-ui,sans-serif;color:#3b2a1e}
+canvas{display:block;width:100%;height:100%}
+#hud{position:fixed;left:12px;bottom:12px;padding:8px 12px;background:#fff9;border-radius:6px;max-width:420px;white-space:pre-line}</style>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"}}</script>
+</head><body><canvas id="c"></canvas><div id="hud"></div>
+<script type="module">
+// Stand-in scene (a box mall with two floors and a few shops) for trying src/camera.js without the real game.
+import * as THREE from 'three';
+import { createCameraController, makeUnselectable } from '../src/camera.js';
+makeUnselectable();
+const canvas = document.getElementById('c');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+const scene = new THREE.Scene(); scene.background = new THREE.Color(0xefe3cc);
+const camera = new THREE.PerspectiveCamera(50, 1, 0.1, 800);
+scene.add(new THREE.HemisphereLight(0xffffff, 0x9a8466, 1.1));
+const sun = new THREE.DirectionalLight(0xffffff, 1.2); sun.position.set(40, 80, 20); scene.add(sun);
+const box = (w, h, d, x, y, z, c) => { const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), new THREE.MeshLambertMaterial({ color: c })); m.position.set(x, y, z); scene.add(m); return m; };
+box(200, 0.2, 140, 0, -0.1, 0, 0xd9c7a3);
+for (let i = -3; i <= 3; i++) for (const s of [-1, 1]) box(16, 8, 20, i * 22, 4, s * 30, (i + s) % 2 ? 0xc46a4a : 0x8c9a6a);
+box(150, 0.3, 12, 0, 0.15, 0, 0xf4ead6);
+const hud = document.getElementById('hud');
+const cam = createCameraController({
+  camera, domElement: canvas,
+  bounds: { minX: -95, maxX: 95, minZ: -65, maxZ: 65 },
+  onModeChange: (m, sub) => { window.__mode = m + ':' + sub; },
+});
+window.__cam = cam;
+function resize() { renderer.setSize(innerWidth, innerHeight, false); camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); }
+addEventListener('resize', resize); resize();
+let last = performance.now();
+renderer.setAnimationLoop((now) => {
+  cam.update((now - last) / 1000); last = now;
+  hud.textContent = cam.mode === 'builder'
+    ? 'Builder: Shift+drag pan, Q/E rotate, wheel zoom, WASD pan, right-drag orbit. F = fly in'
+    : (cam.walking ? 'Walking' : 'Flying') + ': click to look, WASD move, Shift sprint, G walk/fly, Space/C up/down, F = back';
+  renderer.render(scene, camera);
+});
+</script></body></html>
