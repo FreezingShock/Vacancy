@@ -379,6 +379,22 @@ footer.foot{font-family:var(--f-mono);font-size:11px;color:var(--ink-3);display:
 .lampglow,.glowc{filter:url(#glow)}
 .court{fill:none;stroke:var(--rule);stroke-dasharray:2 4}
 .mat{fill:color-mix(in oklch,var(--ink) 55%,var(--iso-floor));stroke:var(--rule)}
+.deck{stroke:rgba(0,0,0,.22);stroke-width:.5;stroke-linejoin:round}
+.runner{fill:color-mix(in oklch,var(--iso-floor) 72%,#fff);stroke:none}
+.corn{fill:color-mix(in oklch,var(--iso-wall-left) 70%,#fff);stroke:rgba(0,0,0,.18);stroke-width:.4}
+.win{fill:#3f6e86;stroke:rgba(0,0,0,.4);stroke-width:.5}
+.win.in{fill:#7fb4c8}
+:root[data-theme="dusk"] .win{fill:#e9b564}
+:root[data-theme="dusk"] .win.in{fill:#f2c987}
+.pit{stroke:rgba(0,0,0,.25);stroke-width:.5}
+.pit.a{fill:color-mix(in oklch,var(--iso-wall-left) 60%,#000)}
+.pit.b{fill:color-mix(in oklch,var(--iso-wall-right) 62%,#000)}
+.rail3{stroke:#bfe9f5;stroke-width:.6;pointer-events:none}
+.ghost{fill:color-mix(in oklch,var(--iso-roof) 5%,transparent);stroke:var(--iso-roof);stroke-width:1.2;stroke-dasharray:6 5;pointer-events:none}
+.ghostsky{fill:color-mix(in oklch,#8fd3e8 14%,transparent);stroke:color-mix(in oklch,#8fd3e8 50%,transparent);stroke-width:.6;pointer-events:none}
+.lift{stroke:var(--iso-roof);stroke-width:.9;stroke-dasharray:2 5;opacity:.7;pointer-events:none}
+#fore text,.ghost~text{pointer-events:none}
+
 .lbl{font-family:var(--f-mono);font-size:10px;letter-spacing:.2em;fill:var(--ink-3)}
 .pop{font-family:var(--f-pixel);font-size:12px;font-weight:700;fill:var(--ochre);text-anchor:middle;pointer-events:none;paint-order:stroke;stroke:var(--ground);stroke-width:3px;animation:rise 1.4s ease-out forwards}
 @keyframes rise{0%{transform:translateY(0);opacity:0}15%{opacity:1}100%{transform:translateY(-26px);opacity:0}}
@@ -408,7 +424,7 @@ footer.foot{font-family:var(--f-mono);font-size:11px;color:var(--ink-3);display:
 <div class="app">
   <header class="hud plate">
     <div class="brand">
-      <span class="eyebrow">Canoga Park · Woodland Hills · Fan build v0.5</span>
+      <span class="eyebrow">Canoga Park · Woodland Hills · Fan build v0.6</span>
       <h1>Vacancy<small>A Topanga Tycoon</small></h1>
     </div>
     <div class="reslist" aria-live="off">
@@ -461,14 +477,14 @@ const TIER_AT=[0,0,5,12,24];
 const B=[
  ["Auntie Anne's","food","S",6000,32,1],["Wetzel's Pretzels","food","S",6500,34,1],["Sunglass Hut","fashion","S",9000,46,1],
  ["Lids","sports","S",8000,42,1],["Yankee Candle","home","S",7000,37,1],["Swatch","fashion","S",12000,60,2],
- ["H&M","fashion","M",20000,104,1],["Foot Locker","sports","M",22000,112,1],["Bath & Body Works","beauty","M",20000,102,1],
+ ["H&M","fashion","MV",20000,104,1],["Foot Locker","sports","M",22000,112,1],["Bath & Body Works","beauty","M",20000,102,1],
  ["GameStop","toys","M",18000,92,1],["Hot Topic","fashion","M",16000,84,1],["Claire's","fashion","M",14000,74,1],
  ["Champs Sports","sports","M",17000,88,1],["Journeys","fashion","M",15000,78,1],["Build-A-Bear","toys","M",19000,98,1],
  ["Verizon","tech","M",16000,84,1],["T-Mobile","tech","M",16000,84,1],["Warby Parker","fashion","MV",24000,120,1],
- ["Zara","fashion","M",45000,215,2],["Uniqlo","fashion","M",46000,220,2],["Sephora","beauty","M",55000,258,2],
+ ["Zara","fashion","MV",45000,215,2],["Uniqlo","fashion","MV",46000,220,2],["Sephora","beauty","M",55000,258,2],
  ["Ulta Beauty","beauty","M",50000,236,2],["Nike","sports","MV",60000,280,2],["Lululemon","sports","M",65000,300,2],
- ["Lego","toys","M",50000,235,2],["Pandora","fashion","M",40000,192,2],["Abercrombie & Fitch","fashion","M",45000,214,2],
- ["Levi's","fashion","M",40000,192,2],["Aritzia","fashion","M",52000,245,2],["Williams Sonoma","home","MV",48000,226,2],
+ ["Lego","toys","M",50000,235,2],["Pandora","fashion","M",40000,192,2],["Abercrombie & Fitch","fashion","MV",45000,214,2],
+ ["Levi's","fashion","M",40000,192,2],["Aritzia","fashion","MV",52000,245,2],["Williams Sonoma","home","MV",48000,226,2],
  ["Samsung","tech","M",70000,322,2],
  ["Apple","tech","MV",180000,790,3],["Tesla","tech","M",150000,660,3],["Tiffany & Co.","luxury","M",160000,705,3],
  ["Coach","luxury","M",120000,535,3],["Michael Kors","luxury","M",110000,492,3],["Aesop","beauty","M",90000,400,3],
@@ -485,6 +501,17 @@ const B=[
  ["Target","department","A",900000,3150,3],["Macy's","department","A",1000000,3450,3],["Nordstrom","department","A",1200000,4050,3],
  ["Dick's Sporting Goods","sports","A",800000,2850,3],["Primark","department","A",700000,2550,3],
  ["Bloomingdale's","department","A",1300000,4380,4],["Neiman Marcus","department","A",1500000,4950,4],
+ ["Boarders","sports","M",20000,100,1],["My Lil Town","toys","M",14000,74,1],["Aldo","fashion","M",17000,90,1],["Cotton On","fashion","M",18000,94,1],
+ ["American Eagle","fashion","M",22000,112,1],["PacSun","fashion","M",20000,102,1],["Visions Studio","home","M",14000,74,1],["Shoe Palace","sports","M",22000,112,1],
+ ["Tilly's","fashion","M",19000,98,1],["Pro Image Sports","sports","M",18000,92,1],["M. Sky","fashion","M",15000,78,1],["Zumiez","fashion","M",17000,88,1],
+ ["YoungLA","fashion","M",18000,94,1],["Garage","fashion","M",17000,88,1],["Aerie","fashion","M",20000,102,1],["Adidas","sports","M",25000,125,1],
+ ["Hollister","fashion","M",22000,112,1],["Lucky Brand","fashion","M",18000,94,1],["Studs","beauty","M",15000,78,1],["5.11","sports","M",20000,102,1],
+ ["BoxLunch","toys","M",20000,102,1],["Alo","sports","M",62000,290,2],["maje","fashion","M",70000,325,2],["M.A.C. Cosmetics","beauty","M",38000,182,2],
+ ["Rothy's","fashion","M",36000,172,2],["Valentino","luxury","M",380000,1620,4],["Bvlgari","luxury","M",400000,1700,4],
+ ["STK Steakhouse","food","R",130000,590,2],["North Italia","food","R",95000,430,2],
+ ["Charleys","food","F",20000,104,1],["Villa Fresh Italian Kitchen","food","F",24000,120,1],["Gengis Khan BBQ Grill","food","F",22000,112,1],
+ ["Stone Oven","food","F",22000,112,1],["Chipotle","food","F",32000,160,1],["Kabob Social","food","F",28000,140,1],["Ozzy's Apizza","food","F",26000,130,1],
+ ["Mini Kabob","food","F",22000,112,1],["JINYA Ramen Bar","food","F",44000,210,2],["Chubby Cove","food","F",30000,150,2],["Kura Revolving Sushi Bar","food","F",48000,228,2],
  ["Round1 Bowling & Arcade","entertainment","E",450000,1720,2],["Dave & Buster's","entertainment","E",500000,1900,3],["AMC Dine-In","entertainment","E",600000,2240,3],
  ["Trader Joe's","grocery","W",300000,1200,2],["Whole Foods Market","grocery","W",900000,3200,3],["Costco","grocery","W",2000000,6900,4]
 ].map(a=>({id:a[0].toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,""),n:a[0],cat:a[1],types:a[2],cost:a[3],inc:a[4],tier:a[5]}));
@@ -540,72 +567,40 @@ const signBg=(s,b)=>SIGNC[s.look.sc][1]||`var(--cat-${b.cat})`;
 const signFg=(s,b)=>SIGNC[s.look.sc][2]||"var(--zone-ink)";
 
 /* ---------- Floor plan ----------
-   Traced from Westfield Topanga's public directory map (Levels 1 to 3) and OpenStreetMap footprints, then simplified.
+   Traced from the ground-level Westfield Topanga directory map (image pixels become plan units 1:1), then simplified.
    Plan x runs north to south (Vanowen St to Victory Blvd), plan y runs east to west (Owensmouth Ave to Topanga Canyon Blvd).
-   The east concourse runs past the Owensmouth side shops, the west concourse past the Topanga Canyon side shops,
-   and three courts cross between them: by Target and Macy's, at the center toward Neiman Marcus, and by Nordstrom. */
+   The map shows one level. Level 1 is assumed. Level 2, Level 3, the food court spot, the Topanga Social annex and the
+   corridor lines are guesses. Shop sizes are box areas at about 2.3 sq ft per pixel, so they are estimates. */
+const STOREY=36,LVI={L1:1,L2:2,L3:3,V:0};
 const LOTS=[];
-const ZONE={E:[112,186],C1:[186,224],ME:[224,278],MW:[278,332],C2:[332,376],W:[376,466]};
-const IDS={};
-const nextId=(lv,ser)=>{const k=lv+ser;IDS[k]=(IDS[k]||0)+1;return lv+"-"+ser+String(IDS[k]).padStart(2,"0")};
-const NUM={};
-// A run of lots between x0 and x1. Each spec is a real tenant name, or [type, real name]. front: S opens toward +y, N toward -y.
-function run(lv,ser,x0,x1,y,h,front,label,specs,gap){
-  gap=gap==null?4:gap;const n=specs.length,w=(x1-x0-(n-1)*gap)/n;
-  specs.forEach((sp,i)=>{const [type,real]=Array.isArray(sp)?sp:["M",sp],x=x0+i*(w+gap);NUM[label]=(NUM[label]||0)+1;
-    LOTS.push({id:nextId(lv,ser),level:lv,type,x,y,w,h,name:label+" "+NUM[label],real,d:[x+w/2,front==="S"?y+h+6:y-6]})});
-}
-// Shops on the north court face east, toward the court.
-function eastFacing(lv,ser,x,y0,y1,w,label,specs){
-  const n=specs.length,h=(y1-y0-(n-1)*4)/n;
-  specs.forEach((real,i)=>{const y=y0+i*(h+4);NUM[label]=(NUM[label]||0)+1;
-    LOTS.push({id:nextId(lv,ser),level:lv,type:"M",x,y,w,h,name:label+" "+NUM[label],real,d:[x+w+6,y+h/2]})});
-}
-// Anchors stand on Level 1 and rise through Level 2. Macy's and Nordstrom are three-floor stores, so they also show on Level 3.
-function anchor(id,x,y,w,h,name,real,d,extra){LOTS.push({id,level:"L1",both:true,type:"A",x,y,w,h,name,real,d,...(extra||{})})}
-anchor("L2-AW",257,104,206,115,"North anchor, Owensmouth side","Target",[470,200]);
-anchor("L1-AW",284,299,179,129,"North anchor, Vanowen side","Macy's",[470,330],{tall:true});
-anchor("L1-AE",874,104,127,145,"South anchor, Owensmouth side","Nordstrom",[868,205],{tall:true});
+const SQFT=2.3;
+const slug=s=>s.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
+const cb=(ix,iy,w,h)=>({x:iy,y:1200-ix-w,w:h,h:w});   // directory-map box to plan box
+const sqOf=b=>Math.round(b.w*b.h*SQFT/100)*100;
+const areaOf=(ix,iy)=>ix>=900&&iy>=300&&iy<=600?"East luxury wing":ix<490&&iy>=250&&iy<=420?"West wing":iy<250?"North strip":iy<320?"North concourse":iy<440?"Center blocks":"South row";
+const AREA_N={};
+const FOOD_COURT={"Charleys":"L2-F1","Villa Fresh Italian Kitchen":"L2-F2","Panda Express":"L2-F3","Stone Oven":"L2-F4","Gengis Khan BBQ Grill":"L2-F5","Chipotle":"L2-F6"};
+const L1RAW=[["Zara",775,320,105,115,"V"],["H&M",502,445,55,115,"V"],["Abercrombie & Fitch",652,445,42,119,"V"],["Aritzia",740,445,45,115,"V"],["Uniqlo",612,445,36,119,"V"],["Cheesecake Factory",900,470,45,95,"R"],["Apple",625,277,60,65,"M"],["STK Steakhouse",1070,322,50,75,"R"],["Boarders",448,510,50,60,"M"],["Alo",833,445,45,65,"M"],["My Lil Town",400,268,80,34,"M"],["Aldo",778,130,30,85,"M"],["Cotton On",572,445,35,70,"M"],["American Eagle",834,222,34,70,"M"],["Arhaus",962,530,42,55,"V"],["PacSun",583,322,25,90,"M"],["Visions Studio",548,135,22,100,"M"],["Hermès",1005,520,55,40,"M"],["Shoe Palace",510,170,35,60,"M"],["Tilly's",528,322,28,75,"M"],["Saint Laurent",905,315,35,60,"M"],["Prada",945,450,42,50,"M"],["North Italia",833,515,40,45,"R"],["Celine",990,455,36,50,"M"],["Journeys",400,305,80,22,"M"],["Pro Image Sports",868,130,28,60,"M"],["Sephora",638,345,42,40,"M"],["Foot Locker",596,262,28,60,"M"],["Bottega Veneta",905,380,62,26,"M"],["Christian Dior",1030,478,40,40,"M"],["M. Sky",806,225,26,60,"M"],["Zumiez",573,155,28,55,"M"],["YoungLA",603,170,28,55,"M"],["Garage",610,348,24,64,"M"],["Aerie",870,262,38,40,"M"],["Adidas",840,130,25,60,"M"],["Hollister",558,355,24,60,"M"],["Hot Topic",530,270,35,40,"M"],["Lucky Brand",812,135,25,55,"M"],["Studs",720,475,19,55,"M"],["Charleys",636,133,24,50,"F"],["Villa Fresh Italian Kitchen",662,133,24,50,"F"],["Gengis Khan BBQ Grill",735,130,40,30,"F"],["Valentino",975,375,40,30,"M"],["maje",718,352,52,22,"M"],["5.11",908,130,38,28,"M"],["Corner unit",940,165,27,35,"M"],["Chipotle",735,162,40,26,"F"],["Bvlgari",1017,375,33,30,"M"],["Levi's",733,296,60,16,"M"],["M.A.C. Cosmetics",733,248,38,24,"M"],["Champs Sports",418,333,48,18,"M"],["BoxLunch",780,225,24,35,"M"],["Lululemon",752,274,34,20,"M"],["Lids",600,128,25,25,"S"],["Tesla",1085,462,25,25,"M"],["Panda Express",636,186,24,24,"F"],["Stone Oven",662,186,24,24,"F"],["Rothy's",740,332,30,15,"M"],["T-Mobile",468,470,22,15,"M"]];
+const L2TWINS=["Shoe Palace","Visions Studio","Zumiez","YoungLA","Aldo","Lucky Brand","Adidas","Pro Image Sports","M. Sky","American Eagle","Aerie","Lululemon","Hot Topic","Foot Locker","Tilly's","Hollister","PacSun","Cotton On","Uniqlo","Abercrombie & Fitch","Aritzia","Alo","Prada","Celine","Saint Laurent","Bottega Veneta","Valentino","Bvlgari","Hermès","Christian Dior"];
+function mallLot(o){o.sq=o.sq||sqOf(o);LOTS.push(o)}
+let twin=0;
+for(const [name,ix,iy,w,h,kind] of L1RAW){
+  const b=cb(ix,iy,w,h),fc=FOOD_COURT[name],area=areaOf(ix,iy);
+  if(fc){mallLot({id:fc,level:"L2",type:"F",...b,name:"Food court stall "+fc.slice(4),real:name});continue}
+  AREA_N[area]=(AREA_N[area]||0)+1;
+  mallLot({id:"L1-"+slug(name),level:"L1",type:kind,...b,name:area+" "+AREA_N[area],real:name==="Corner unit"?undefined:name});
+  if(L2TWINS.includes(name))mallLot({id:"L2-T"+(++twin),level:"L2",type:kind==="V"?"V":"M",...b,name:"Upper concourse "+twin})}
+// Anchors stand on Level 1 and rise through the upper levels. Ids stay as in earlier versions so saves keep them.
+function anchor(id,ix,iy,w,h,name,real,extra){mallLot({id,level:"L1",type:"A",...cb(ix,iy,w,h),name,real,...(extra||{})})}
+anchor("L2-AW",208,112,255,140,"North anchor, west","Target",{both:true,fl:2,sq:160000});
+anchor("L1-AW",242,357,225,150,"West anchor","Macy's",{tall:true,fl:3,sq:233000});
+anchor("L1-AE",968,110,157,185,"North anchor, east","Nordstrom",{tall:true,fl:3,sq:204000});
 // The first Nordstrom (1984) on the Topanga Canyon side became Neiman Marcus in 2008. Neiman Marcus closed it in May 2026.
-anchor("L2-AE",593,472,123,135,"Former Neiman Marcus","Neiman Marcus closed this store in May 2026. The anchor is empty, ready to re-lease.",[658,468],{dark:"FORMER NEIMAN MARCUS"});
-
-const [E0,E1]=ZONE.E,[M0,MM]=ZONE.ME,M1=ZONE.MW[1],[W0,W1]=ZONE.W;
-// Level 1, in the order the directory lists them from Target and Macy's toward Nordstrom.
-run("L1","N",480,642,E0,E1-E0,"S","East concourse",["Gap","Fashion Nova","Vans"]);
-run("L1","N",674,866,E0,E1-E0,"S","East concourse",["Anthropologie","Coach","Warby Parker","Gorjana"]);
-run("L1","N",506,642,M0,MM-M0,"N","Center block, east side",["Lego","JD Sports","Versace"]);
-run("L1","N",674,806,M0,MM-M0,"N","Center block, east side",["Ferragamo","Boss","Madewell"]);
-eastFacing("L1","N",413,232,296,57,"North court",["Kids Foot Locker","Fun Factory"]);
-run("L1","N",830,874,M0,M1-M0,"N","South court",[["R","Din Tai Fung"]]);
-run("L1","S",506,642,MM,M1-MM,"S","Center block, west side",["Victoria's Secret","Sandro","Cartier"]);
-run("L1","S",674,806,MM,M1-MM,"S","Center block, west side",["Gucci","Zara"]);
-run("L1","S",506,642,W0,W1-W0,"N","West concourse",["Vacant on the directory map","COS","Louis Vuitton"]);
-run("L1","S",674,806,W0,W1-W0,"N","West concourse",["Balenciaga","Urban Outfitters","Dolce & Gabbana"]);
-run("L1","S",878,1000,254,M1-254,"S","South court",["Red Door Escape Room","Chain"]);
-// Level 2
-run("L2","N",480,586,E0,E1-E0,"S","East concourse",["Zumiez","Lids"]);
-run("L2","N",814,866,E0,E1-E0,"S","East concourse",["ALDO"]);
-run("L2","N",506,642,M0,MM-M0,"N","Center block, east side",["Hot Topic","Foot Locker","Apple"]);
-run("L2","N",674,806,M0,MM-M0,"N","Center block, east side",["Lululemon","Levi's","American Eagle"]);
-eastFacing("L2","N",413,232,296,57,"North court",["Journeys","Champs Sports"]);
-run("L2","S",506,642,MM,M1-MM,"S","Center block, west side",["Hollister","PacSun","Sephora"]);
-run("L2","S",674,806,MM,M1-MM,"S","Center block, west side",["Maje","Zara"]);
-run("L2","S",506,642,W0,W1-W0,"N","West concourse",["H&M","Uniqlo","Abercrombie & Fitch"]);
-run("L2","S",674,806,W0,W1-W0,"N","West concourse",["Aritzia","Vuori","Alo Yoga"]);
-run("L2","S",830,874,M0,M1-M0,"S","Luxury wing",["Saint Laurent"]);
-run("L2","S",878,1000,254,M1-254,"S","Luxury wing",["Bottega Veneta","Bvlgari",["R","STK Steakhouse"]]);
-run("L2","S",830,1040,W0,440-W0,"N","Luxury wing",[["R","The Cheesecake Factory"],"Prada","Celine","Dior","Hermès"]);
-// Kiosks sit in the west concourse on Level 1.
-[518,584,700,766].forEach((x,i)=>LOTS.push({id:"L1-K"+(i+1),level:"L1",type:"S",x,y:335,w:40,h:17,name:"Concourse kiosk "+(i+1),d:[x+20,357]}));
-// The original food court is on Level 2 on the Owensmouth side, by the center court. The ids stay L2-F so saved games keep their stalls.
-["Charleys","Villa Fresh Italian Kitchen","Panda Express","Stone Oven","Gengis Khan BBQ Grill","Chipotle"].forEach((real,i)=>{
-  const w=(218-5*4)/6,x=590+i*(w+4);LOTS.push({id:"L2-F"+(i+1),level:"L2",type:"F",x,y:E0,w,h:48,name:"Food court stall "+(i+1),real,d:[x+w/2,166]})});
-// Topanga Social, the food hall in the old Sears on Level 1.
+anchor("L2-AE",622,565,155,165,"Former Neiman Marcus","Neiman Marcus closed this store in May 2026. The anchor is empty, ready to re-lease.",{both:true,fl:2,sq:118000,dark:"FORMER NEIMAN MARCUS"});
+// The ex-Sears annex (a guess at its spot): Topanga Social on Level 1, AMC Dine-In on Level 3.
 ["Kabob Social","Ozzy's Apizza","Mini Kabob","JINYA Ramen Bar","Chubby Cove","Kura Revolving Sushi Bar"].forEach((real,i)=>{
-  const w=(206-5*4)/6,x=830+i*(w+4);LOTS.push({id:"L1-F"+(i+1),level:"L1",type:"F",x,y:380,w,h:46,name:"Topanga Social stall "+(i+1),real,d:[x+w/2,434]})});
-// The id stays L2-E1 so saved games keep their cinema. The real AMC sits on Level 3, above Topanga Social, in the old Sears.
-LOTS.push({id:"L2-E1",level:"L3",type:"E",x:849,y:273,w:144,h:80,name:"Level 3 cinema",real:"AMC Dine-In Topanga 12",d:[921,359]});
-LOTS.push({id:"L3-H1",level:"L3",type:"V",x:849,y:399,w:96,h:84,name:"Level 3 showroom",real:"Arhaus",d:[897,393]});
+  mallLot({id:"L1-F"+(i+1),level:"L1",type:"F",...cb(268+(i%3)*58,i<3?523:632,54,34),name:"Topanga Social stall "+(i+1),real})});
+mallLot({id:"L2-E1",level:"L3",type:"E",...cb(270,522,170,146),name:"Level 3 cinema",real:"AMC Dine-In Topanga 12"});
 // The Village, south of Victory Blvd. Costco sits east of Westfield Way; the open-air shop walk runs south, west of it.
 LOTS.push({id:"V-W1",level:"V",type:"W",x:70,y:130,w:260,h:250,name:"Village anchor pad",real:"Costco",d:[200,386]});
 ["V-S1","V-S2","V-S3"].forEach((id,i)=>{const w=(840-8)/3,x=330+i*(w+4);LOTS.push({id,level:"V",type:"V",x,y:440,w,h:78,name:"Village shop "+(i+1),d:[x+w/2,524]})});
@@ -613,14 +608,57 @@ LOTS.push({id:"V-W1",level:"V",type:"W",x:70,y:130,w:260,h:250,name:"Village anc
   const w=(840-20)/6,x=330+i*(w+4);
   LOTS.push({id,level:"V",type:t,x,y:562,w,h:86,name:t==="R"?"Village restaurant "+id.slice(3):"Village shop "+id.slice(3),real:real||undefined,d:[x+w/2,556]})});
 const LOT=Object.fromEntries(LOTS.map(l=>[l.id,l]));
-// Link each lot to the game brand of its real tenant, when the game has one. Leasing that brand there earns a bonus.
-const norm=s=>(s||"").normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase().replace(/[^a-z0-9]/g,"");
-const REAL_BONUS=.15;
-for(const l of LOTS){if(!l.real||l.dark)continue;const r=norm(l.real);
-  const b=B.filter(b=>b.types.includes(l.type)&&(r===norm(b.n)||r.startsWith(norm(b.n)))).sort((a,c)=>c.n.length-a.n.length)[0];if(b)l.rb=b.id}
-const LEVELS={L1:"Level 1",L2:"Level 2",L3:"Level 3",V:"The Village"};
+for(const l of LOTS)if(!l.sq)l.sq=TYPES[l.type].sq;
+
+/* Footprints of each floor, in plan units. Level 2 and the annex stack on the same ground as Level 1. */
+const SHELL=cb(400,110,725,490),ANNEX=cb(262,515,186,160);
+const DECKS={1:[SHELL,ANNEX],2:[SHELL,ANNEX],3:[ANNEX]};
+const inRect=(r,x,y)=>x>=r.x&&x<=r.x+r.w&&y>=r.y&&y<=r.y+r.h;
+// A lot is drawn unless a floor above it, at or below the level you picked, covers it. Anchors and the Village always show.
+function shown(l,cut){
+  if(l.level==="V"||l.type==="A")return true;
+  const a=LVI[l.level];if(a>cut)return false;
+  const cx=l.x+l.w/2,cy=l.y+l.h/2;
+  for(let f=a+1;f<=cut;f++)if((DECKS[f]||[]).some(r=>inRect(r,cx,cy)))return false;
+  return true;
+}
 const levelName=l=>l.tall?"Levels 1 to 3":l.both?"Levels 1 and 2":LEVELS[l.level];
 const onLevel=(l,lv)=>l.level===lv||(l.both&&(lv==="L1"||lv==="L2"))||(l.tall&&lv==="L3");
+const LEVELS={L1:"Level 1",L2:"Level 2",L3:"Level 3",V:"The Village"};
+
+/* Corridor centerlines, drawn from the directory map and straightened. Shoppers walk these. */
+const IP=(ix,iy)=>[iy,1200-ix];
+const CORR={
+ mall:[[[483,250],[483,438],[560,438]],[[560,438],[1085,438]],[[708,150],[708,438]],[[483,252],[560,240],[640,236],[708,230]],[[708,230],[800,212],[900,205],[945,192]],[[895,296],[895,438]],[[560,438],[560,594]],[[452,594],[560,594]],[[264,594],[452,594]]],
+ L3:[[[280,595],[430,595]]],
+ V:[[[40,394],[300,394],[1180,394],[1206,394]],[[300,394],[300,540],[1180,540],[1180,394]]]
+};
+const GRAPHS={};
+function walkGraph(lv){
+  const key=lv==="V"?"V":lv==="L3"?"L3":"mall";if(GRAPHS[key])return GRAPHS[key];
+  const E=[],chain=p=>{for(let i=1;i<p.length;i++)E.push([p[i-1],p[i]])};
+  for(const poly of CORR[key])chain(key==="V"?poly:poly.map(p=>IP(p[0],p[1])));
+  const N={},adj={},k=p=>p[0].toFixed(1)+","+p[1].toFixed(1);
+  for(const [a,b] of E){N[k(a)]=a;N[k(b)]=b;const d=Math.hypot(a[0]-b[0],a[1]-b[1]);
+    (adj[k(a)]=adj[k(a)]||[]).push([k(b),d]);(adj[k(b)]=adj[k(b)]||[]).push([k(a),d])}
+  const len=E.map(([a,b])=>Math.hypot(a[0]-b[0],a[1]-b[1])),tot=len.reduce((s,v)=>s+v,0);
+  return GRAPHS[key]={E,N,adj,key:k,len,tot};
+}
+function onGraph(G,pt){let best=null;
+  for(let i=0;i<G.E.length;i++){const [a,b]=G.E[i],dx=b[0]-a[0],dy=b[1]-a[1],L=dx*dx+dy*dy||1;
+    const t=Math.max(0,Math.min(1,((pt[0]-a[0])*dx+(pt[1]-a[1])*dy)/L)),q=[a[0]+t*dx,a[1]+t*dy],d=Math.hypot(q[0]-pt[0],q[1]-pt[1]);
+    if(!best||d<best.d)best={i,q,d}}
+  return best}
+// Each shop door faces the nearest corridor.
+for(const l of LOTS){if(l.d)continue;const G=walkGraph(l.level),cx=l.x+l.w/2,cy=l.y+l.h/2,n=onGraph(G,[cx,cy]),dx=n.q[0]-cx,dy=n.q[1]-cy;
+  const ax=Math.abs(dx)/l.w,ay=Math.abs(dy)/l.h;
+  l.d=ax>ay?[dx>0?l.x+l.w+6:l.x-6,cy]:[cx,dy>0?l.y+l.h+6:l.y-6]}
+// Link each lot to the game brand of its real tenant, when the game has one. Leasing that brand there earns a bonus.
+const norm=s=>(s||"").normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase().replace(/[^a-z0-9]/g,"").replace(/^the(?=.)/,"");
+const ALIAS={christiandior:"dior"};
+const REAL_BONUS=.15;
+for(const l of LOTS){if(!l.real||l.dark)continue;const r0=norm(l.real),r=ALIAS[r0]||r0;
+  const b=B.filter(b=>b.types.includes(l.type)&&(r===norm(b.n)||r.startsWith(norm(b.n)))).sort((a,c)=>c.n.length-a.n.length)[0];if(b)l.rb=b.id}
 
 /* ---------- Economy ----------
    A game day is 60 seconds at 1x. Tenants accrue rent all day and pay at closing, then upkeep comes out.
@@ -630,7 +668,7 @@ const WEEK=["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],WEEKM=[.85,.85,.9,.95,1.1
 const STAR_AT=[0,0,0,3,4];
 // name, rent multiplier, tenant mood shift, note
 const RENTS=[["Friendly",.8,12,"Rent is 20% lower. Tenants are happy and stay put."],["Fair",1,0,"Standard rent. Tenants are neutral."],["Steep",1.25,-16,"Rent is 25% higher. Tenants grumble, and may leave."]];
-const WHERE={L1:"Level 1 · Center Court and concourse",L2:"Level 2 · Food court and Luxury Wing",L3:"Level 3 · Cinema and showroom",V:"The Village · Open air"};
+const WHERE={L1:"Level 1 · Ground floor, upper levels lifted off",L2:"Level 2 · Upper concourse, Level 3 lifted off",L3:"Level 3 · Whole mall open, with the cinema",V:"The Village · Open air"};
 // name, what it does, build cost for level 1, 2 and 3
 const SVC={
  clean:["Cleaning crew","Spotless floors keep shoppers browsing.",[8e3,30e3,90e3]],
@@ -794,13 +832,17 @@ async function flush(){
 function setNote(t){$("#saveNote").textContent=t}
 function valid(o){return o&&o.v===1&&typeof o.cash==="number"&&o.lots&&typeof o.lots==="object"}
 function adopt(o,announce){
-  const lots={};for(const id in o.lots){const s=o.lots[id];if(LOT[id]&&BRAND[s.b]){const lvl=Math.min(5,Math.max(1,s.lvl|0));
+  const lots={};let refund=0,moved=0;
+  for(const id in o.lots){const s=o.lots[id];if(BRAND[s.b]&&!(LOT[id]&&BRAND[s.b].types.includes(LOT[id].type))){refund+=BRAND[s.b].cost;moved++}}
+  for(const id in o.lots){const s=o.lots[id];if(LOT[id]&&BRAND[s.b]&&BRAND[s.b].types.includes(LOT[id].type)){const lvl=Math.min(5,Math.max(1,s.lvl|0));
     const items=Array.from({length:12},(_,i)=>(s.items&&IT[s.items[i]])?s.items[i]:null);lots[id]={b:s.b,lvl,items,look:cleanLook(s.look),bad:Math.max(0,s.bad|0)}}}
   const svc={...SVC0};if(o.svc)for(const k in SVC0){const v=o.svc[k]|0;if(v>=0&&v<=3)svc[k]=v}
   S={v:1,cash:o.cash,savedAt:o.savedAt||Date.now(),earned:o.earned||0,lots,day:Math.max(1,o.day|0||1),clock:clamp(+o.clock||0,0,DAY-1),owed:Math.max(0,+o.owed||0),
     rent:[0,1,2].includes(o.rent)?o.rent:1,svc,goals:{},hist:Array.isArray(o.hist)?o.hist.filter(Number.isFinite).slice(-7):[],ev:EV[o.ev]?o.ev:null};
   if(o.goals)for(const g of GOALS){const v=o.goals[g.id];if(v===1||v===2)S.goals[g.id]=v}
+  S.cash+=refund;
   recompute();checkGoals(true);
+  if(refund>0&&announce)setTimeout(()=>toast("The mall was redrawn to the real directory map. "+moved+" lease"+(moved>1?"s were":" was")+" refunded: "+money(refund)+".","good"),400);
   awayCredit((Date.now()-S.savedAt)/1000,announce);
 }
 try{const raw=localStorage.getItem(KEY);if(raw){const o=JSON.parse(raw);if(valid(o))adopt(o,true)}}catch(e){}
@@ -828,11 +870,9 @@ function toast(t,kind){const box=$("#toasts"),el=document.createElement("div");e
 /* ---------- Isometric drawing ----------
    One projection for the mall, another for a store close-up or its interior. P() reads PR. */
 const K=.62,CO=.866,SI=.5,NS="http://www.w3.org/2000/svg";
-const MAP={k:K,ox:700*CO*K+24,oy:96};
-const VW=Math.round(1960*CO*K+48),VH=Math.round(1960*SI*K+96+28);
 const HT={A:92,E:76,W:58,V:34,R:28,M:30,F:14,S:12};
-let PR=MAP;
-function P(x,y,z){const k=PR.k;return [(x-y)*CO*k+PR.ox,(x+y)*SI*k-(z||0)*k+PR.oy]}
+let PR={k:.74,ox:0,oy:0},ZOFF=0;
+function P(x,y,z){const k=PR.k;return [(x-y)*CO*k+PR.ox,(x+y)*SI*k-((z||0)+ZOFF)*k+PR.oy]}
 const f1=n=>n.toFixed(1);
 const pts=a=>a.map(p=>f1(p[0])+","+f1(p[1])).join(" ");
 const poly=(a,attr)=>`<polygon points="${pts(a)}" ${attr||""}/>`;
@@ -927,7 +967,7 @@ function storefront(F,zg,s,b,type){
   return o;
 }
 function building(g,s,b){
-  const {x,y,w,h,type}=g,L=s.look,lvl=s.lvl,z=heightOf(type,lvl)*(g.zm||1),big=isBig(type);
+  const {x,y,w,h,type}=g,L=s.look,lvl=s.lvl,z=g.zh||heightOf(type,lvl)*(g.zm||1),big=isBig(type);
   const m=wallBase(s,b),F=face(g.front,x,y,w,h),vis=g.front==="S"||g.front==="E";
   const zg=Math.max(8,z*(lvl>=4?.6:.48)),zs1=Math.min(z-2,zg+1.5+(big?24:13));
   let back="",o="";
@@ -979,7 +1019,7 @@ function stallSvg(g,s,b){
 }
 function darkAnchor(l){
   // A closed department store: shuttered shell, papered windows, leasing banner on the Topanga Canyon side.
-  const {x,y,w,h}=l,z=HT.A*.9,c="#77736c";let o=blk(x,y,w,h,0,z,c);
+  const {x,y,w,h}=l,z=Math.max(28,anchorH(l,curCut())-3),c="#77736c";let o=blk(x,y,w,h,0,z,c);
   const F=face("S",x,y,w,h),FE=face("E",x,y,w,h);
   o+=wallPattern(F,z,"plaster")+wallPattern(FE,z,"plaster");
   o+=fq(F,F.len*.28,F.len*.72,1.5,z*.42,`class="hoard"`)+fq(F,F.len*.12,F.len*.88,z*.5,z*.5+18,`class="sbox" style="fill:#2b2e35"`);
@@ -990,7 +1030,7 @@ function darkAnchor(l){
 function emptyLot(l){
   if(l.dark)return darkAnchor(l);
   const T=TYPES[l.type],small=l.type==="S"||l.type==="F",cx=l.x+l.w/2,cy=l.y+l.h/2;
-  let o=flat(l.x,l.y,l.w,l.h,0,"box");
+  let o=prism(l.x,l.y,l.w,l.h,small?2:3,"box");
   if(!small&&l.w>=70&&l.h>=50){const fr=frontOf(l);if(fr==="S"||fr==="E"){const F=face(fr,l.x,l.y,l.w,l.h);o+=fq(F,0,F.len,0,10,`class="hoard"`)+ftext(F,F.len/2,5,"FOR LEASE",5.2,"","hd")}
     else o+=tag(cx,cy,0,"FOR LEASE","lease",11)}
   return o+tag(cx,cy,0,"+","plus",small?5:-2);
@@ -1000,6 +1040,7 @@ function lotSvg(l){
   const s=S.lots[l.id],sel=view.lot===l.id,T=TYPES[l.type];
   if(!s)return `<g class="lot empty${l.dark?" dark":""}${sel?" sel":""}" data-lot="${l.id}" tabindex="0" role="button" aria-label="${esc(l.name+", "+T.n+", for lease")}">${emptyLot(l)}</g>`;
   const b=BRAND[s.b],g={x:l.x,y:l.y,w:l.w,h:l.h,type:l.type,front:frontOf(l)};
+  if(l.type==="A")g.zh=anchorH(l,curCut())+2*(s.lvl-1);
   let inner=l.type==="S"?kioskSvg(g,s,b):l.type==="F"?stallSvg(g,s,b):building(g,s,b);
   return `<g class="lot occ${sel?" sel":""}" data-lot="${l.id}" tabindex="0" role="button" aria-label="${esc(b.n+", "+l.name+", level "+s.lvl)}">${inner}</g>`;
 }
@@ -1044,122 +1085,264 @@ function entrance(x,y,len,axis){
   return flat(x,y,w,h,0,"mat")+blk(x-2,y-2,w+4,h+4,24,26,"#d9dfe4")+seg(x,y,0,x,y,24,"pole")+seg(axis==="x"?x+w:x,axis==="x"?y:y+h,0,axis==="x"?x+w:x,axis==="x"?y:y+h,24,"pole");
 }
 function tiles(x0,y0,x1,y1,st){let t="";st=st||24;for(let x=x0+st;x<x1;x+=st)t+=seg(x,y0,.1,x,y1,.1,"tile");for(let y=y0+st;y<y1;y+=st)t+=seg(x0,y,.1,x1,y,.1,"tile");return t}
-function scenery(level){
-  const ground=[],items=[],fore=[];
-  const it=(x,y,s)=>items.push({k:x+y,s});
-  let grid="";for(let x=0;x<=1260;x+=60){const [a,b]=P(x,0,0),[c,d]=P(x,700,0);grid+=`<line x1="${f1(a)}" y1="${f1(b)}" x2="${f1(c)}" y2="${f1(d)}"/>`}
-  for(let y=0;y<=700;y+=60){const [a,b]=P(0,y,0),[c,d]=P(1260,y,0);grid+=`<line x1="${f1(a)}" y1="${f1(b)}" x2="${f1(c)}" y2="${f1(d)}"/>`}
-  ground.push(`<g class="isogrid">${grid}</g>`);
-  const compass=(()=>{const [cx,cy]=P(1220,640,0),[nx,ny]=[-CO*22,-SI*22];
-    return `<g transform="translate(${f1(cx)} ${f1(cy-30)})"><ellipse rx="26" ry="15" class="court"/><path d="M${f1(nx)} ${f1(ny)} L5 3 L0 0 L-3 6Z" style="fill:var(--accent)"/><text class="lbl" x="${f1(nx*1.5)}" y="${f1(ny*1.5)}" text-anchor="middle">N</text></g>`})();
-  const road=(x,y,w,h,axis)=>{let o=flat(x,y,w,h,0,"road");o+=axis==="x"?seg(x+4,y+h/2,.1,x+w-4,y+h/2,.1,"lane"):seg(x+w/2,y+4,.1,x+w/2,y+h-4,.1,"lane");return o};
-  if(level==="V"){
-    // The Village: Victory Blvd on the north edge, Erwin St to the south, Owensmouth Ave east and Topanga Canyon Blvd west.
-    ground.push(road(0,0,34,700,"y")+along(17,330,17,640,"VICTORY BLVD","lbl"));
-    ground.push(road(34,0,1180,22,"x")+along(500,11,1100,11,"OWENSMOUTH AVE","lbl"));
-    ground.push(road(34,672,1226,28,"x")+along(240,686,1180,686,"TOPANGA CANYON BLVD","lbl"));
-    ground.push(road(1214,22,46,650,"y")+along(1237,120,1237,600,"ERWIN ST","lbl"));
-    ground.push(flat(36,24,1176,646,0,"slab"));
-    ground.push(road(34,400,1180,26,"x")+along(560,413,760,413,"WESTFIELD WAY","lbl"));
-    ground.push(road(780,22,26,378,"y")+along(793,60,793,380,"WEST VALLEY WAY","lbl"));
-    // Costco gas east of the warehouse, the Village garage south of it, a hotel past West Valley Way, and surface parking to the east.
-    ground.push(flat(54,36,90,70,0,"asph")+blk(64,46,70,50,16,18,"#d9dfe4")+tag(99,71,20,"COSTCO GAS","lbl",4));
-    for(const x of [74,94,114])ground.push(blk(x,64,8,10,0,8,"#8a8f96"));
-    ground.push(garage(360,150,400,230,23,"VILLAGE PARKING"));
-    ground.push(park(830,30,370,96,31)+park(830,300,370,90,37));
-    ground.push(park(60,436,230,214,41));
-    it(130,520,blk(76,456,108,120,0,40,"#c9c3b6")+tag(130,516,40,"MEDICAL","lbl",-4));
-    // the open-air shop walk
-    ground.push(flat(300,518,890,44,0,"walkway"));
-    let pav="";for(let x=320;x<1190;x+=20)pav+=seg(x,518,.1,x,562,.1,"tile");ground.push(pav);
-    ground.push(flat(300,426,890,12,0,"walk")+flat(36,388,1178,12,0,"walk"));
-    ground.push(along(420,540,1000,540,"THE VILLAGE · OPEN-AIR WALK","lbl")+along(1190,120,1190,600,"WESTFIELD PROMENADE SITE, SOUTH →","lbl")+compass);
-    it(890,210,blk(830,140,140,140,0,96,"#b9b1a3")+tag(900,210,96,"HOTEL","lbl",-4));
-    for(let x=340;x<1180;x+=70){it(x,524,tree(x,524,30,8));it(x+35,556,tree(x+35,556,30,8))}
-    for(let x=375;x<1180;x+=140)it(x,540,lamp(x,540));
-    for(const x of [450,730,1010])it(x,535,bench(x,532));
-    it(300,540,fountain(300,540,16));
-    for(let x=60;x<1200;x+=80)fore.push(tree(x,664,28,8));
-    return {ground:ground.join(""),items,fore:fore.join("")};
+/* ---------- Scenes ----------
+   The mall is one solid building. The level you pick sets the cut: floors above it are lifted away, floors below it stay as a
+   walled podium, and anchors are cut to the same height. Every piece is a box in plan space, so one depth sort
+   orders slabs, walls, shops, fixtures and shoppers alike. The Village is open air and has its own scene. */
+const mkMap=(xm,ym,zm,k)=>{const pad=22,top=Math.round(zm*k)+pad;
+  return {k,ox:ym*CO*k+pad,oy:top,w:Math.round((xm+ym)*CO*k+2*pad),h:Math.round((xm+ym)*SI*k+top+pad+22)}};
+const MAPS={mall:mkMap(790,1062,170,.74),V:mkMap(1260,700,110,.62)};
+let MAP=MAPS.mall,VW=MAP.w,VH=MAP.h;
+const curCut=()=>view.level==="V"?0:LVI[view.level];
+const zOf=lv=>(LVI[lv]-1)*STOREY;
+const anchorH=(l,cut)=>Math.min(l.fl||2,Math.max(cut,1))*STOREY;
+const WT=3,RIM=11,DECK=3;
+const ATRIUM={x:390,y:506,w:42,h:54};
+const ANCH=LOTS.filter(l=>l.type==="A");
+let ORD=[];
+
+const mkBox=(x0,y0,x1,y1,z0,z1,s)=>({x0,x1,y0,y1,z0,z1,s,k:(x0+x1+y0+y1)/2+(z0+z1)*.3});
+function box3(x0,y0,x1,y1,z0,z1,fT,fL,fR,cls){
+  const st=f=>`class="${cls||"blk"}" style="fill:${f}"`;
+  return poly([P(x0,y1,z0),P(x1,y1,z0),P(x1,y1,z1),P(x0,y1,z1)],st(fL))+poly([P(x1,y0,z0),P(x1,y1,z0),P(x1,y1,z1),P(x1,y0,z1)],st(fR))+
+    poly([P(x0,y0,z1),P(x1,y0,z1),P(x1,y1,z1),P(x0,y1,z1)],st(fT));
+}
+// Painter's order for axis-aligned boxes seen from +x,+y,+z: a box is behind another when it ends before the other begins on any one axis.
+function depthSort(items){
+  const n=items.length,adj=Array.from({length:n},()=>[]),indeg=new Array(n).fill(0),E=.01;
+  for(let i=0;i<n;i++)for(let j=i+1;j<n;j++){
+    const a=items[i],b=items[j];
+    const ab=a.x1<=b.x0+E||a.y1<=b.y0+E||a.z1<=b.z0+E,ba=b.x1<=a.x0+E||b.y1<=a.y0+E||b.z1<=a.z0+E;
+    if(ab&&!ba){adj[i].push(j);indeg[j]++}else if(ba&&!ab){adj[j].push(i);indeg[i]++}
   }
-  ground.push(road(0,0,1260,22,"x")+along(80,11,440,11,"OWENSMOUTH AVE","lbl"));
-  ground.push(road(0,672,1260,28,"x")+along(200,686,1100,686,"TOPANGA CANYON BLVD","lbl"));
-  ground.push(road(0,22,22,650,"y")+along(11,120,11,600,"VANOWEN ST","lbl"));
-  ground.push(road(1214,22,46,650,"y")+along(1237,120,1237,600,"VICTORY BLVD","lbl"));
-  ground.push(flat(26,26,1184,642,0,"walk")+flat(30,30,1170,630,0,"slab"));
-  for(let x=60;x<1200;x+=80)ground.push(tree(x,27,26,7));
-  for(let y=60;y<660;y+=80)ground.push(tree(27,y,26,7));
-  // Surface lots on the Victory and Topanga Canyon sides, and by Vanowen.
-  ground.push(park(1050,40,156,620,11)+park(36,584,552,80,19)+park(730,500,310,164,29)+park(36,300,240,280,7)+park(36,36,70,250,5));
-  // Parking structures: along Owensmouth, north of Target on the Vanowen side, and west of Macy's.
-  ground.push(garage(470,32,520,66,3,"PARKING · OWENSMOUTH"));
-  ground.push(garage(111,141,140,143,13,"PARKING · NORTH"));
-  ground.push(garage(297,440,200,132,17,"PARKING · WEST"));
-  // The mall shell under the shops.
-  const shell=[[463,104,411,362],[413,219,57,81],[806,222,234,268]];
-  if(level==="L3"){
-    // Level 3 holds only AMC and Arhaus above Topanga Social, reached by escalator. Macy's and Nordstrom reach it inside their own stores.
-    for(const [x,y,w,h] of shell)ground.push(flat(x,y,w,h,0,"slab"));
-    ground.push(along(520,300,800,300,"MALL ROOF","lbl"));
-    ground.push(flat(830,353,170,46,0,"corr")+tiles(830,353,1000,399,23));
-    it(857,367,escalator(834,880,357,false,30));
-    it(985,380,planterBox(985,380,6));
-    ground.push(compass);
-    for(let x=60;x<1200;x+=80)fore.push(tree(x,664,26,7));
-    for(let y=60;y<660;y+=80)fore.push(tree(1206,y,26,7));
-    return {ground:ground.join(""),items,fore:fore.join("")};
+  const done=new Array(n).fill(false),out=[];
+  for(let c=0;c<n;c++){
+    let pick=-1;
+    for(let i=0;i<n;i++)if(!done[i]&&indeg[i]===0&&(pick<0||items[i].k<items[pick].k))pick=i;
+    if(pick<0)for(let i=0;i<n;i++)if(!done[i]&&(pick<0||indeg[i]<indeg[pick]||(indeg[i]===indeg[pick]&&items[i].k<items[pick].k)))pick=i;
+    done[pick]=true;out.push(items[pick]);for(const j of adj[pick])indeg[j]--;
   }
-  const L1=level==="L1";
-  for(const [x,y,w,h] of shell)ground.push(flat(x,y,w,h,0,"slab"));
-  // concourses and courts
-  const [c10,c11]=ZONE.C1,[c20,c21]=ZONE.C2;
-  const floors=[[470,c10,404,c11-c10],[470,c20,570,c21-c20],[470,c10,36,(L1?440:c21)-c10],[642,L1?104:c10,32,472-(L1?104:c10)],[806,c10,24,(L1?490:440)-c10],[413,219,57,13]];
-  if(L1)floors.push([830,426,210,64]);else floors.push([590,160,218,26]);
-  for(const [x,y,w,h] of floors)ground.push(flat(x,y,w,h,0,"corr")+tiles(x,y,x+w,y+h,24));
-  if(L1){
-    ground.push(entrance(642,98,32,"x")+entrance(470,440,36,"x")+entrance(405,219,13,"y")+entrance(1040,c20+6,32,"y")+entrance(1040,436,40,"y"));
-    ground.push(along(850,484,1030,484,"TOPANGA SOCIAL","lbl"));
-    for(const x of [860,920,980])it(x,460,blk(x-12,450,24,14,0,7,WOOD)+blk(x-14,448,28,18,7,8.5,WHT));
-    for(const x of [890,950,1010])it(x,476,bench(x-9,473));
-    it(484,290,fountain(484,290,12));
-    it(655,268,escalatorY(645,236,300,true,30));
-    for(const [x,y] of [[560,341],[640,341],[880,341]])it(x,y,bench(x,y));
-    for(const x of [520,790])it(x,217,planterBox(x,217,6));
-  }else{
-    // Level 2 looks down to Level 1 through glass-railed openings in the west concourse.
-    for(const [x,w] of [[516,80],[700,90],[880,100]]){ground.push(flat(x,c20+4,w,16,0,"void")+`<polygon class="rail" points="${pts([P(x,c20+4,6),P(x+w,c20+4,6),P(x+w,c20+20,6),P(x,c20+20,6)])}"/>`)}
-    ground.push(entrance(405,219,13,"y"));
-    ground.push(along(850,466,1030,466,"LUXURY WING","lbl"));
-    ground.push(along(600,150,800,150,"FOOD COURT","lbl"));
-    for(let x=604;x<804;x+=34)it(x,173,blk(x,168,14,10,0,7,WOOD)+blk(x-2,166,18,14,7,8.5,WHT));
-    it(655,268,escalatorY(645,236,300,false,30));
-    it(482,300,planterBox(482,300,7));
-    for(const [x,y] of [[620,341],[810,341],[1010,341]])it(x,y,bench(x,y));
+  return out;
+}
+// The crowd layer a shopper at (x,y,z) belongs to: after every item behind them and before the first item in front.
+function layerOf(x,y,z){
+  let lastB=-1,firstF=ORD.length;
+  for(let i=0;i<ORD.length;i++){const e=ORD[i];
+    if(e.x1<=x+.01||e.y1<=y+.01||e.z1<=z+.01)lastB=i;
+    else if(firstF===ORD.length&&(x<=e.x0+.01||y<=e.y0+.01||z+14<=e.z0))firstF=i}
+  return Math.min(lastB+1,firstF);
+}
+
+/* Outer wall segments of a union of rectangles. s is +1 on a wall that faces +x or +y, toward the viewer. */
+function outline(rects){
+  const xs=[...new Set(rects.flatMap(r=>[r.x,r.x+r.w]))].sort((a,b)=>a-b),ys=[...new Set(rects.flatMap(r=>[r.y,r.y+r.h]))].sort((a,b)=>a-b);
+  const nx=xs.length-1,ny=ys.length-1,fill=[];
+  for(let i=0;i<nx;i++){fill[i]=[];for(let j=0;j<ny;j++)fill[i][j]=rects.some(r=>inRect(r,(xs[i]+xs[i+1])/2,(ys[j]+ys[j+1])/2))}
+  const f=(i,j)=>i>=0&&j>=0&&i<nx&&j<ny&&fill[i][j],raw=[];
+  for(let i=0;i<nx;i++)for(let j=0;j<ny;j++)if(fill[i][j]){
+    if(!f(i-1,j))raw.push({ax:"x",c:xs[i],a:ys[j],b:ys[j+1],s:-1});
+    if(!f(i+1,j))raw.push({ax:"x",c:xs[i+1],a:ys[j],b:ys[j+1],s:1});
+    if(!f(i,j-1))raw.push({ax:"y",c:ys[j],a:xs[i],b:xs[i+1],s:-1});
+    if(!f(i,j+1))raw.push({ax:"y",c:ys[j+1],a:xs[i],b:xs[i+1],s:1});
   }
-  ground.push(along(475,232,475,330,"NORTH COURT","lbl"));
-  ground.push(compass);
-  for(let x=60;x<1200;x+=80)fore.push(tree(x,664,26,7));
-  for(let y=60;y<660;y+=80)fore.push(tree(1206,y,26,7));
-  return {ground:ground.join(""),items,fore:fore.join("")};
+  raw.sort((p,q)=>p.ax<q.ax?-1:p.ax>q.ax?1:p.s-q.s||p.c-q.c||p.a-q.a);
+  const out=[];
+  for(const e of raw){const p=out[out.length-1];if(p&&p.ax===e.ax&&p.s===e.s&&p.c===e.c&&p.b===e.a)p.b=e.b;else out.push({...e})}
+  return out;
+}
+function minus(r,h){
+  if(!(h.x<r.x+r.w&&h.x+h.w>r.x&&h.y<r.y+r.h&&h.y+h.h>r.y))return [r];
+  const o=[],x0=Math.max(r.x,h.x),x1=Math.min(r.x+r.w,h.x+h.w);
+  if(h.x>r.x)o.push({x:r.x,y:r.y,w:h.x-r.x,h:r.h});
+  if(h.x+h.w<r.x+r.w)o.push({x:h.x+h.w,y:r.y,w:r.x+r.w-h.x-h.w,h:r.h});
+  if(h.y>r.y)o.push({x:x0,y:r.y,w:x1-x0,h:h.y-r.y});
+  if(h.y+h.h<r.y+r.h)o.push({x:x0,y:h.y+h.h,w:x1-x0,h:r.y+r.h-h.y-h.h});
+  return o;
+}
+const rectsOf=f=>[...(DECKS[f]||[]),...ANCH.filter(a=>(a.fl||1)>=f)];
+const inAnchor=(x,y,f)=>ANCH.some(a=>(a.fl||1)>=f&&x>a.x&&x<a.x+a.w&&y>a.y&&y<a.y+a.h);
+const WL="var(--iso-wall-left)",WR="var(--iso-wall-right)";
+
+// One wall segment on floor f. "pod" is a full-height outside wall with arched windows, "rim" is the low cut edge, "back" is the far wall seen from inside.
+function wallItem(e,f,mode){
+  const z0=(f-1)*STOREY,hgt=mode==="rim"?RIM:mode==="pod"?STOREY:STOREY-5;
+  const x0=e.ax==="x"?(e.s>0?e.c:e.c-WT):e.a,x1=e.ax==="x"?x0+WT:e.b;
+  const y0=e.ax==="y"?(e.s>0?e.c:e.c-WT):e.a,y1=e.ax==="y"?y0+WT:e.b;
+  const inner=mode==="back";
+  let o=box3(x0,y0,x1,y1,z0,z0+hgt,WL,shade(inner?WL:WL,inner?94:88),shade(inner?WL:WR,inner?80:96),"wall");
+  if(mode!=="rim"){
+    const F=e.ax==="x"?face("E",x0,y0,WT,y1-y0):face("S",x0,y0,x1-x0,WT),len=F.len,n=Math.floor(len/30);
+    o+=fq(F,0,len,z0+hgt-3.2,z0+hgt,`class="corn"`);
+    if(mode==="pod")o+=fq(F,0,len,z0,z0+3,`class="corn"`);
+    for(let i=0;i<n;i++){const c=(i+.5)*len/n;o+=archq(F,c-6.5,c+6.5,z0+9,z0+hgt-9,`class="win${inner?" in":""}"`)}
+  }
+  return mkBox(x0,y0,x1,y1,z0,z0+hgt,o);
+}
+function deckSvg(r,z){
+  return box3(r.x,r.y,r.x+r.w,r.y+r.h,z-DECK,z,"var(--iso-floor)",shade("var(--iso-floor-edge)",92),shade("var(--iso-floor-edge)",78),"deck");
+}
+function runner(a,b,hw,z,cls){
+  const dx=b[0]-a[0],dy=b[1]-a[1],L=Math.hypot(dx,dy)||1,nx=-dy/L*hw,ny=dx/L*hw;
+  return poly([P(a[0]+nx,a[1]+ny,z),P(b[0]+nx,b[1]+ny,z),P(b[0]-nx,b[1]-ny,z),P(a[0]-nx,a[1]-ny,z)],`class="${cls}"`);
+}
+const freeSpot=(x,y,m)=>!LOTS.some(l=>l.level!=="V"&&x>l.x-m&&x<l.x+l.w+m&&y>l.y-m&&y<l.y+l.h+m)&&
+  !(x>ATRIUM.x-m&&x<ATRIUM.x+ATRIUM.w+m&&y>ATRIUM.y-m&&y<ATRIUM.y+ATRIUM.h+m);
+const roadQ=(x,y,w,h,axis)=>{let o=flat(x,y,w,h,0,"road");o+=axis==="x"?seg(x+4,y+h/2,.1,x+w-4,y+h/2,.1,"lane"):seg(x+w/2,y+4,.1,x+w/2,y+h-4,.1,"lane");return o};
+function isoGrid(xm,ym){let g="";for(let x=0;x<=xm;x+=60){const [a,b]=P(x,0,0),[c,d]=P(x,ym,0);g+=`<line x1="${f1(a)}" y1="${f1(b)}" x2="${f1(c)}" y2="${f1(d)}"/>`}
+  for(let y=0;y<=ym;y+=60){const [a,b]=P(0,y,0),[c,d]=P(xm,y,0);g+=`<line x1="${f1(a)}" y1="${f1(b)}" x2="${f1(c)}" y2="${f1(d)}"/>`}
+  return `<g class="isogrid">${g}</g>`}
+function compassAt(x,y){const [cx,cy]=P(x,y,0),[nx,ny]=[-CO*22,-SI*22];
+  return `<g transform="translate(${f1(cx)} ${f1(cy-30)})"><ellipse rx="26" ry="15" class="court"/><path d="M${f1(nx)} ${f1(ny)} L5 3 L0 0 L-3 6Z" style="fill:var(--accent)"/><text class="lbl" x="${f1(nx*1.5)}" y="${f1(ny*1.5)}" text-anchor="middle">N</text></g>`}
+const treeBox=(x,y,hz,r,seed)=>mkBox(x-r,y-r,x+r,y+r,0,hz+r,tree(x,y,hz,r));
+
+function mallScene(cut){
+  MAP=MAPS.mall;PR=MAP;ZOFF=0;
+  const ground=[],items=[],fore=[],add=b=>items.push(b);
+  ground.push(isoGrid(790,1062));
+  ground.push(roadQ(0,0,22,1062,"y")+along(11,200,11,760,"VANOWEN ST","lbl"));
+  ground.push(roadQ(22,0,768,22,"x")+along(120,11,520,11,"OWENSMOUTH AVE","lbl"));
+  ground.push(roadQ(22,1034,744,28,"x")+along(180,1048,640,1048,"TOPANGA CANYON BLVD","lbl"));
+  ground.push(roadQ(766,22,24,1012,"y")+along(778,200,778,860,"VICTORY BLVD","lbl"));
+  ground.push(flat(26,26,736,1004,0,"walk")+flat(30,30,728,996,0,"slab"));
+  // Surface parking by side, parking structures north and south. The east and south lots are guesses; the real map shows only the west, southwest and north.
+  ground.push(park(30,30,76,300,5)+park(30,610,76,410,9)+park(606,30,150,380,11)+park(690,810,66,214,13)+park(120,994,560,40,17));
+  add(mkBox(32,338,100,596,0,18,garage(32,338,68,258,3,"PARKING · NORTH")));
+  add(mkBox(692,600,758,800,0,18,garage(692,600,66,200,23,"PARKING · SOUTH")));
+  for(let x=130;x<=560;x+=72)add(treeBox(x,48,26,7));
+  // The south door, where the main walk meets the south forecourt.
+  add(mkBox(602,622,616,658,0,27,entrance(604,624,32,"y")));
+
+  // floors: walls, decks and fixtures, bottom up
+  for(let f=1;f<=cut;f++){
+    const R=rectsOf(f),Rn=f<cut?rectsOf(f+1):[];
+    for(const e of outline(R)){
+      const m=(e.a+e.b)/2,ix=e.ax==="x"?e.c-e.s*.5:m,iy=e.ax==="x"?m:e.c-e.s*.5;
+      if(inAnchor(ix,iy,f))continue;
+      const cov=Rn.some(r=>inRect(r,ix,iy));
+      if(e.s>0)add(wallItem(e,f,cov?"pod":"rim"));else if(!cov)add(wallItem(e,f,"back"));
+    }
+    const z=(f-1)*STOREY;
+    let rects=(DECKS[f]||[]).flatMap(r=>f===2?minus(r,ATRIUM):[r]);
+    for(const r of rects)add(mkBox(r.x,r.y,r.x+r.w,r.y+r.h,z-DECK,z,deckSvg(r,z)));
+    // tile lines, a runner down each corridor, benches and planters
+    ZOFF=z;let d="";
+    for(const r of rects)d+=tiles(r.x,r.y,r.x+r.w,r.y+r.h,24);
+    const key=f===3?"L3":"mall",G=walkGraph(key);
+    for(const [a,b] of G.E)d+=runner(a,b,5,.2,"runner");
+    if(f===1&&cut>=2){
+      const A=ATRIUM;
+      d+=poly([P(A.x,A.y,0),P(A.x,A.y+A.h,0),P(A.x,A.y+A.h,STOREY),P(A.x,A.y,STOREY)],`class="pit a"`)+
+         poly([P(A.x,A.y,0),P(A.x+A.w,A.y,0),P(A.x+A.w,A.y,STOREY),P(A.x,A.y,STOREY)],`class="pit b"`);
+    }
+    if(f===Math.min(cut,2)||f===3){
+      let n=0;
+      for(const [a,b] of G.E){const L=Math.hypot(b[0]-a[0],b[1]-a[1]);
+        for(let s=40;s<L-20;s+=64){const t=s/L,px=a[0]+t*(b[0]-a[0]),py=a[1]+t*(b[1]-a[1]),side=(n++%2?1:-1)*9,nx=-(b[1]-a[1])/L,ny=(b[0]-a[0])/L,qx=px+nx*side,qy=py+ny*side;
+          if(!freeSpot(qx,qy,13)&&!(f===3))continue;
+          if(f===3&&LOTS.some(l=>l.level==="L3"&&qx>l.x-8&&qx<l.x+l.w+8&&qy>l.y-8&&qy<l.y+l.h+8))continue;
+          add(n%3===0?mkBox(qx-8,qy-8,qx+8,qy+8,z,z+22,planterBox(qx,qy,6)):mkBox(qx,qy,qx+18,qy+6,z,z+5,bench(qx,qy)))}}
+    }
+    ZOFF=0;
+    const rs=rects.length?rects:[];
+    const bx=Math.min(...rs.map(r=>r.x)),by=Math.min(...rs.map(r=>r.y)),bX=Math.max(...rs.map(r=>r.x+r.w)),bY=Math.max(...rs.map(r=>r.y+r.h));
+    add(mkBox(bx,by,bX,bY,z,z,d));
+  }
+  // the atrium: escalators between Levels 1 and 2, glass rails round the opening on Level 2
+  if(cut>=2){
+    const A=ATRIUM;
+    add(mkBox(394,508,428,533,0,STOREY+7,escalator(394,428,508,true,STOREY)));
+    add(mkBox(394,532,428,557,0,STOREY+7,escalator(394,428,532,false,STOREY)));
+    const z=STOREY,rl=(x0,y0,x1,y1)=>mkBox(x0,y0,x1,y1,z,z+8,box3(x0,y0,x1,y1,z,z+8,"rgba(191,233,245,.4)","rgba(191,233,245,.32)","rgba(191,233,245,.28)","rail3"));
+    if(cut===2||cut===3){
+      add(rl(A.x-2,A.y,A.x,A.y+A.h));add(rl(A.x+A.w,A.y,A.x+A.w+2,A.y+A.h));
+      add(rl(A.x,A.y-2,A.x+A.w,A.y));add(rl(A.x,A.y+A.h,A.x+A.w,A.y+A.h+2));
+    }
+  }
+  // lots
+  for(const l of LOTS){
+    if(l.level==="V"||!shown(l,cut))continue;
+    const base=l.type==="A"?0:zOf(l.level),s=S.lots[l.id];
+    ZOFF=base;const svg=lotSvg(l);ZOFF=0;
+    const hh=l.type==="A"?anchorH(l,cut)+2*((s&&s.lvl||1)-1)+14:l.type==="S"?30:l.type==="F"?38:(s?heightOf(l.type,s.lvl)+22:HT[l.type]+8);
+    add(mkBox(l.x,l.y,l.x+l.w,l.y+l.h,base,base+hh,svg));
+  }
+  // the lifted roof: a ghost of the lid over the cut, with its skylights
+  const zt=cut*STOREY+50,sh=DECKS[1][0];
+  let g="";
+  for(const r of (cut===3?[sh,DECKS[3][0]]:[sh]))g+=flat(r.x,r.y,r.w,r.h,zt,"ghost");
+  for(let y=sh.y+60;y<sh.y+sh.h-70;y+=96)g+=flat(sh.x+60,y,sh.w-120,40,zt+.2,"ghostsky");
+  for(const [x,y] of [[sh.x,sh.y],[sh.x+sh.w,sh.y],[sh.x,sh.y+sh.h],[sh.x+sh.w,sh.y+sh.h]])g+=seg(x,y,(cut>1?(cut-1):0)*STOREY,x,y,zt,"lift");
+  g+=tag(sh.x+sh.w/2,sh.y+sh.h/2,zt,"ROOF LIFTED OFF","lbl",0);
+  fore.push(g);
+  ground.push(compassAt(40,40));
+  return {ground:ground.join(""),items,fore:fore.join(""),map:MAP};
+}
+
+function villageScene(){
+  MAP=MAPS.V;PR=MAP;ZOFF=0;
+  const ground=[],items=[],fore=[],add=b=>items.push(b);
+  const vit=(x0,y0,w,h,z,s)=>add(mkBox(x0,y0,x0+w,y0+h,0,z,s));
+  ground.push(isoGrid(1260,700));
+  // The Village: Victory Blvd on the north edge, Erwin St to the south, Owensmouth Ave east and Topanga Canyon Blvd west.
+  ground.push(roadQ(0,0,34,700,"y")+along(17,330,17,640,"VICTORY BLVD","lbl"));
+  ground.push(roadQ(34,0,1180,22,"x")+along(500,11,1100,11,"OWENSMOUTH AVE","lbl"));
+  ground.push(roadQ(34,672,1226,28,"x")+along(240,686,1180,686,"TOPANGA CANYON BLVD","lbl"));
+  ground.push(roadQ(1214,22,46,650,"y")+along(1237,120,1237,600,"ERWIN ST","lbl"));
+  ground.push(flat(36,24,1176,646,0,"slab"));
+  ground.push(roadQ(34,400,1180,26,"x")+along(560,413,760,413,"WESTFIELD WAY","lbl"));
+  ground.push(roadQ(780,22,26,378,"y")+along(793,60,793,380,"WEST VALLEY WAY","lbl"));
+  // Costco gas east of the warehouse, the Village garage south of it, a hotel past West Valley Way, and surface parking to the east.
+  ground.push(flat(54,36,90,70,0,"asph")+blk(64,46,70,50,16,18,"#d9dfe4")+tag(99,71,20,"COSTCO GAS","lbl",4));
+  for(const x of [74,94,114])ground.push(blk(x,64,8,10,0,8,"#8a8f96"));
+  ground.push(garage(360,150,400,230,23,"VILLAGE PARKING"));
+  ground.push(park(830,30,370,96,31)+park(830,300,370,90,37));
+  ground.push(park(60,436,230,214,41));
+  vit(76,456,108,120,40,blk(76,456,108,120,0,40,"#c9c3b6")+tag(130,516,40,"MEDICAL","lbl",-4));
+  // the open-air shop walk
+  ground.push(flat(300,518,890,44,0,"walkway"));
+  let pav="";for(let x=320;x<1190;x+=20)pav+=seg(x,518,.1,x,562,.1,"tile");ground.push(pav);
+  ground.push(flat(300,426,890,12,0,"walk")+flat(36,388,1178,12,0,"walk"));
+  ground.push(along(420,540,1000,540,"THE VILLAGE · OPEN-AIR WALK","lbl")+along(1190,120,1190,600,"WESTFIELD PROMENADE SITE, SOUTH →","lbl")+compassAt(1220,640));
+  vit(830,140,140,140,96,blk(830,140,140,140,0,96,"#b9b1a3")+tag(900,210,96,"HOTEL","lbl",-4));
+  for(let x=340;x<1180;x+=70){add(treeBox(x,524,30,8));add(treeBox(x+35,556,30,8))}
+  for(let x=375;x<1180;x+=140)add(mkBox(x-3,537,x+3,543,0,24,lamp(x,540)));
+  for(const x of [450,730,1010])add(mkBox(x,532,x+18,538,0,5,bench(x,532)));
+  add(mkBox(284,524,316,556,0,24,fountain(300,540,16)));
+  for(const l of LOTS){if(l.level!=="V")continue;
+    const s=S.lots[l.id],hh=s?heightOf(l.type,s.lvl)+22:HT[l.type]+8;
+    add(mkBox(l.x,l.y,l.x+l.w,l.y+l.h,0,hh,lotSvg(l)))}
+  for(let x=60;x<1200;x+=80)fore.push(tree(x,664,28,8));
+  return {ground:ground.join(""),items,fore:fore.join(""),map:MAP};
 }
 
 /* ---------- Map ---------- */
-let cam={s:1,tx:0,ty:0};
+let cam={s:1,tx:0,ty:0},framed=null;
 function camT(){return `translate(${f1(cam.tx)} ${f1(cam.ty)}) scale(${cam.s.toFixed(3)})`}
 function setCam(){const w=$("#world");if(w)w.setAttribute("transform",camT())}
 function clampCam(){cam.s=Math.min(3.5,Math.max(1,cam.s));cam.tx=Math.min(0,Math.max(VW-VW*cam.s,cam.tx));cam.ty=Math.min(0,Math.max(VH-VH*cam.s,cam.ty))}
-// Lots, street furniture and shoppers are drawn back to front by plan x+y, so people pass behind and in front of shops.
-let DEPTH=[],layers=[];
+// Frame the cut mall, or the whole Village, so the picked level fills the stage.
+function frameCam(){
+  const lv=view.level,M=lv==="V"?MAPS.V:MAPS.mall,keep=PR;PR=M;
+  const zt=lv==="V"?40:LVI[lv]*STOREY+56,pts=lv==="V"?[[40,20,0],[1230,20,0],[40,690,0],[1230,690,0]]:
+    [[100,60,0],[100,1010,0],[745,60,0],[745,1010,0],[100,60,zt],[100,1010,zt],[745,60,zt],[745,1010,zt]];
+  let a=1e9,b=-1e9,c=1e9,d=-1e9;
+  for(const [x,y,z] of pts){const [sx,sy]=P(x,y,z);a=Math.min(a,sx);b=Math.max(b,sx);c=Math.min(c,sy);d=Math.max(d,sy)}
+  PR=keep;
+  const s=Math.min(2.2,Math.max(1,Math.min(M.w/(b-a+50),M.h/(d-c+50))));
+  cam={s,tx:M.w/2-(a+b)/2*s,ty:M.h/2-(c+d)/2*s};
+  VW=M.w;VH=M.h;clampCam();
+}
 function renderMap(){
   if(view.inside){$("#zoom").hidden=true;if(view.mode==="front")renderFront();else renderInterior();return}
-  $("#zoom").hidden=false;PR=MAP;
-  const lv=view.level,sc=scenery(lv);
-  const els=LOTS.filter(l=>onLevel(l,lv)).map(l=>({k:l.x+l.w/2+l.y+l.h/2,s:lotSvg(l)})).concat(sc.items).sort((a,b)=>a.k-b.k);
-  DEPTH=els.map(e=>e.k);
-  $("#stage").innerHTML=`<svg id="mapsvg" viewBox="0 0 ${VW} ${VH}" role="img" aria-label="${esc(LEVELS[lv])} isometric map">
+  $("#zoom").hidden=false;
+  const lv=view.level,sc=lv==="V"?villageScene():mallScene(curCut());
+  MAP=sc.map;PR=MAP;VW=MAP.w;VH=MAP.h;
+  if(framed!==lv){framed=lv;frameCam()}
+  ORD=depthSort(sc.items);
+  $("#stage").innerHTML=`<svg id="mapsvg" viewBox="0 0 ${VW} ${VH}" role="img" aria-label="${esc(LEVELS[lv])}, isometric cutaway of the mall">
     <defs><pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" style="stroke:var(--rule)" stroke-width="1"/></pattern>
     <filter id="glow" x="-30%" y="-60%" width="160%" height="220%"><feGaussianBlur stdDeviation="1.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
-    <g id="world" transform="${camT()}">${sc.ground}<g id="cars"></g><g id="scene"><g class="cl"></g>${els.map(e=>e.s+`<g class="cl"></g>`).join("")}</g>${sc.fore}<g id="fx"></g></g></svg>`;
+    <g id="world" transform="${camT()}">${sc.ground}<g id="cars"></g><g id="scene"><g class="cl"></g>${ORD.map(e=>e.s+`<g class="cl"></g>`).join("")}</g>${sc.fore}<g id="fx"></g></g></svg>`;
   spawnCrowd();spawnCars();
 }
 function markSel(){
@@ -1180,35 +1363,8 @@ function renderTabs(){
 /* ---------- Shoppers and traffic ----------
    Shoppers walk a graph of corridor centerlines, then step off it to a shop door. */
 const SHIRT=["#c8312b","#3c6fb0","#e9e6df","#2f8a4c","#d9a520","#6d4a8a","#e2559a","#2b2e35","#1aa6a0"];
-let crowd=[],crowdEls=[],cars=[],carEls=[];
+let crowd=[],crowdEls=[],cars=[],carEls=[],layers=[];
 function personSvg(c){const k=PR.k;return `<rect x="${f1(-1.9*k*1.6)}" y="${f1(-9*k*1.6)}" width="${f1(3.8*k*1.6)}" height="${f1(6*k*1.6)}" rx="1.2" style="fill:${c}"/><rect x="${f1(-1.5*k*1.6)}" y="${f1(-3.2*k*1.6)}" width="${f1(3*k*1.6)}" height="${f1(3.2*k*1.6)}" style="fill:#2e3440"/><circle cy="${f1(-10.6*k*1.6)}" r="${f1(1.7*k*1.6)}" style="fill:${SKIN}"/>`}
-const WALK={C1:205,C2:362,NC:499,CC:669,SC:818,HALL:440,FC:174};
-const GRAPHS={};
-function walkGraph(lv){
-  if(GRAPHS[lv])return GRAPHS[lv];
-  const E=[],chain=(...p)=>{for(let i=1;i<p.length;i++)E.push([p[i-1],p[i]])};
-  const {C1,C2,NC,CC,SC,HALL,FC}=WALK;
-  if(lv==="V"){chain([40,394],[300,394],[1180,394],[1206,394]);chain([300,394],[300,540],[1180,540],[1180,394])}
-  else if(lv==="L3")chain([836,389],[996,389]);
-  else{
-    chain([NC,C1],[594,C1],[CC,C1],[806,C1],[SC,C1],[868,C1]);
-    chain([NC,C2],[CC,C2],[SC,C2],[1032,C2]);
-    chain([425,226],[NC,226]);chain([NC,C1],[NC,226],[NC,C2],[NC,436]);
-    chain([CC,C1],[CC,C2],[CC,462]);chain([SC,C1],[SC,C2]);
-    if(lv==="L1"){chain([CC,C1],[CC,104]);chain([SC,C2],[SC,HALL],[1032,HALL],[1044,HALL]);chain([1032,C2],[1044,C2])}
-    else chain([594,C1],[594,FC],[806,FC],[806,C1]);
-  }
-  const N={},adj={},key=p=>p[0]+","+p[1];
-  for(const [a,b] of E){N[key(a)]=a;N[key(b)]=b;const d=Math.hypot(a[0]-b[0],a[1]-b[1]);
-    (adj[key(a)]=adj[key(a)]||[]).push([key(b),d]);(adj[key(b)]=adj[key(b)]||[]).push([key(a),d])}
-  const len=E.map(([a,b])=>Math.hypot(a[0]-b[0],a[1]-b[1])),tot=len.reduce((s,v)=>s+v,0);
-  return GRAPHS[lv]={E,N,adj,key,len,tot};
-}
-function onGraph(G,pt){let best=null;
-  for(let i=0;i<G.E.length;i++){const [a,b]=G.E[i],dx=b[0]-a[0],dy=b[1]-a[1],L=dx*dx+dy*dy||1;
-    const t=Math.max(0,Math.min(1,((pt[0]-a[0])*dx+(pt[1]-a[1])*dy)/L)),q=[a[0]+t*dx,a[1]+t*dy],d=Math.hypot(q[0]-pt[0],q[1]-pt[1]);
-    if(!best||d<best.d)best={i,q,d}}
-  return best}
 function route(G,from,to){
   const A=onGraph(G,from),Bq=onGraph(G,to);
   if(A.i===Bq.i)return [A.q,Bq.q];
@@ -1223,33 +1379,38 @@ function route(G,from,to){
 function randomSpot(G){let r=Math.random()*G.tot;
   for(let i=0;i<G.E.length;i++){if(r<=G.len[i]){const [a,b]=G.E[i],t=r/(G.len[i]||1);return [a[0]+t*(b[0]-a[0]),a[1]+t*(b[1]-a[1])]}r-=G.len[i]}
   return G.E[0][0]}
-// The crowd sublayer a shopper at plan (x,y) belongs to: one past every element drawn behind them.
-function layerAt(x,y){const k=x+y;let lo=0,hi=DEPTH.length;while(lo<hi){const m=(lo+hi)>>1;if(DEPTH[m]<k)lo=m+1;else hi=m}return lo}
+// Shoppers walk the corridor lines of the floor they stand on, then step off to a shop door.
+function crowdGroups(){
+  const lv=view.level;if(lv==="V")return [{key:"V",z:0}];
+  const c=LVI[lv];return c===3?[{key:"mall",z:STOREY},{key:"L3",z:2*STOREY}]:[{key:"mall",z:(c-1)*STOREY}];
+}
 function spawnCrowd(){
   const sc=$("#scene");if(!sc)return;layers=[...sc.querySelectorAll(":scope > g.cl")];
-  const lv=view.level,G=walkGraph(lv);
-  const open=LOTS.filter(l=>onLevel(l,lv)&&S.lots[l.id]&&onGraph(G,l.d).d<40);
-  const n=Math.max(6,Math.min(70,Math.round((6+open.length*2.2)*traffic)));
-  crowd=[];crowdEls=[];
-  for(let i=0;i<n;i++){const [x,y]=randomSpot(G),p={x,y,q:[],wait:Math.random()*2,sp:20+Math.random()*24,c:SHIRT[Math.random()*SHIRT.length|0],j:[Math.random()*10-5,Math.random()*10-5]};
-    const el=document.createElementNS(NS,"g");el.setAttribute("class","pp");el.innerHTML=personSvg(p.c);
-    const [sx,sy]=P(x,y,0);el.setAttribute("transform",`translate(${f1(sx)} ${f1(sy)})`);
-    p.li=layerAt(x,y);if(layers[p.li])layers[p.li].appendChild(el);crowd.push(p);crowdEls.push(el)}
-  crowd.open=open;crowd.G=G;
+  const cut=curCut();crowd=[];crowdEls=[];
+  for(const grp of crowdGroups()){
+    const G=walkGraph(grp.key),V=grp.key==="V";
+    const open=LOTS.filter(l=>S.lots[l.id]&&(V?l.level==="V":l.level!=="V"&&shown(l,cut)&&(l.type==="A"?grp.key==="mall":zOf(l.level)===grp.z))&&onGraph(G,l.d).d<40);
+    const n=Math.max(grp.key==="L3"?2:6,Math.min(70,Math.round((6+open.length*2.2)*traffic*(grp.key==="L3"?.4:1))));
+    for(let i=0;i<n;i++){const [x,y]=randomSpot(G),p={x,y,z:grp.z,G,open,q:[],wait:Math.random()*2,sp:20+Math.random()*24,c:SHIRT[Math.random()*SHIRT.length|0],j:[Math.random()*10-5,Math.random()*10-5]};
+      const el=document.createElementNS(NS,"g");el.setAttribute("class","pp");el.innerHTML=personSvg(p.c);
+      const [sx,sy]=P(x,y,p.z);el.setAttribute("transform",`translate(${f1(sx)} ${f1(sy)})`);
+      p.li=layerOf(x,y,p.z);if(layers[p.li])layers[p.li].appendChild(el);crowd.push(p);crowdEls.push(el)}
+  }
 }
 function plan(p){
-  const open=crowd.open||[],G=crowd.G;if(!G)return;
+  const open=p.open,G=p.G;if(!G)return;
   const jit=pt=>[pt[0]+p.j[0],pt[1]+p.j[1]];
   if(open.length&&Math.random()<.55){
     const l=open[Math.floor(Math.random()*open.length)];
     p.q=route(G,[p.x,p.y],l.d).map(jit);p.q.push([l.d[0]+(Math.random()*6-3),l.d[1]]);p.after=Math.random()*1.6+.6;
   }else{p.q=route(G,[p.x,p.y],randomSpot(G)).map(jit);p.after=Math.random()*.6}
 }
-const LANES={mall:[{a:"x",c:7,d:1,r:[-20,1280]},{a:"x",c:17,d:-1,r:[-20,1280]},{a:"x",c:681,d:1,r:[-20,1280]},{a:"x",c:693,d:-1,r:[-20,1280]},
-  {a:"y",c:7,d:1,r:[22,672]},{a:"y",c:17,d:-1,r:[22,672]},{a:"y",c:1228,d:1,r:[22,672]},{a:"y",c:1248,d:-1,r:[22,672]}],
+const LANES={
+  mall:[{a:"x",c:7,d:1,r:[-20,810]},{a:"x",c:17,d:-1,r:[-20,810]},{a:"x",c:1041,d:1,r:[-20,810]},{a:"x",c:1053,d:-1,r:[-20,810]},
+    {a:"y",c:7,d:1,r:[22,1034]},{a:"y",c:17,d:-1,r:[22,1034]},{a:"y",c:772,d:1,r:[22,1034]},{a:"y",c:784,d:-1,r:[22,1034]}],
   V:[{a:"y",c:9,d:1,r:[-20,700]},{a:"y",c:25,d:-1,r:[-20,700]},{a:"x",c:681,d:1,r:[34,1280]},{a:"x",c:693,d:-1,r:[34,1280]},
-  {a:"x",c:6,d:1,r:[34,1214]},{a:"x",c:16,d:-1,r:[34,1214]},{a:"x",c:407,d:1,r:[34,1214]},{a:"x",c:419,d:-1,r:[34,1214]},
-  {a:"y",c:1228,d:1,r:[22,672]},{a:"y",c:1248,d:-1,r:[22,672]}]};
+    {a:"x",c:6,d:1,r:[34,1214]},{a:"x",c:16,d:-1,r:[34,1214]},{a:"x",c:407,d:1,r:[34,1214]},{a:"x",c:419,d:-1,r:[34,1214]},
+    {a:"y",c:1228,d:1,r:[22,672]},{a:"y",c:1248,d:-1,r:[22,672]}]};
 function spawnCars(){
   const g=$("#cars");if(!g)return;const lanes=LANES[view.level==="V"?"V":"mall"];cars=[];
   lanes.forEach(L=>{for(let i=0;i<2;i++)cars.push({L,t:L.r[0]+Math.random()*(L.r[1]-L.r[0]),sp:40+Math.random()*30,c:CARC[Math.random()*CARC.length|0]})});
@@ -1273,17 +1434,17 @@ function stepCrowd(dt){
     const [tx,ty]=p.q[0],dx=tx-p.x,dy=ty-p.y,d=Math.hypot(dx,dy),s=p.sp*dt;
     if(d<=s){p.x=tx;p.y=ty;p.q.shift();if(!p.q.length)p.wait=p.after}
     else{p.x+=dx/d*s;p.y+=dy/d*s}
-    const el=crowdEls[i];if(el){const [sx,sy]=P(p.x,p.y,0);el.setAttribute("transform",`translate(${f1(sx)} ${f1(sy)})`);
-      const li=layerAt(p.x,p.y);if(li!==p.li&&layers[li]){layers[li].appendChild(el);p.li=li}}
+    const el=crowdEls[i];if(el){const [sx,sy]=P(p.x,p.y,p.z);el.setAttribute("transform",`translate(${f1(sx)} ${f1(sy)})`);
+      const li=layerOf(p.x,p.y,p.z);if(li!==p.li&&layers[li]){layers[li].appendChild(el);p.li=li}}
   }
 }
 let popT=1;
 function pops(dt){
   popT-=dt;if(popT>0||reduce||view.inside||document.hidden)return;popT=1.1+Math.random()*.8;
   const fx=$("#fx");if(!fx||!fx.appendChild)return;
-  const open=LOTS.filter(l=>onLevel(l,view.level)&&S.lots[l.id]);if(!open.length)return;
+  const cut=curCut(),V=view.level==="V",open=LOTS.filter(l=>S.lots[l.id]&&(V?l.level==="V":l.level!=="V"&&shown(l,cut)));if(!open.length)return;
   const l=open[Math.random()*open.length|0],s=S.lots[l.id];PR=MAP;const amt=pend[l.id]||0;if(amt<1)return;pend[l.id]=0;
-  const z=l.type==="S"?30:l.type==="F"?36:heightOf(l.type,s.lvl)+10,[sx,sy]=P(l.x+l.w/2,l.y+l.h/2,z);
+  const base=V||l.type==="A"?0:zOf(l.level),z=base+(l.type==="S"?30:l.type==="F"?36:l.type==="A"?anchorH(l,cut)+10:heightOf(l.type,s.lvl)+10),[sx,sy]=P(l.x+l.w/2,l.y+l.h/2,z);
   const t=document.createElementNS(NS,"text");t.setAttribute("class","pop");t.setAttribute("x",f1(sx));t.setAttribute("y",f1(sy));
   t.textContent="+"+money(amt);fx.appendChild(t);setTimeout(()=>t.remove(),1500);
 }
@@ -1503,7 +1664,7 @@ function leaseSide(l){
     else btn=`<button class="btn buy" data-lease="${b.id}" data-cost="${b.cost}" ${S.cash<b.cost?"disabled":""}>Lease ${money(b.cost)}</button>`;
     return `<div class="brandrow${locked?" locked":""}" style="--c:var(--cat-${b.cat})"><span class="arch">${esc(b.n[0])}</span><span class="n">${esc(b.n)}</span>${btn}
       <span class="k"><span class="tag">${esc(CATS[b.cat])}</span> · ${perDay(b.inc)} base</span></div>`}).join("");
-  return panel(lotEye(l)+" · for lease",esc(tc(l.name)),`<div class="meta">${esc(T.n)} · ${sq(T.sq)}</div>${l.real?`<div class="meta">In real life: ${esc(l.real)}</div>`:""}${l.rb?`<div class="note good">Lease ${esc(BRAND[l.rb].n)} here, its real spot, for +${REAL_BONUS*100}% sales.</div>`:""}
+  return panel(lotEye(l)+" · for lease",esc(tc(l.name)),`<div class="meta">${esc(T.n)} · ${sq(l.sq)}${l.level==="V"||l.sq===T.sq?"":" (est.)"}</div>${l.real?`<div class="meta">In real life: ${esc(l.real)}</div>`:""}${l.rb?`<div class="note good">Lease ${esc(BRAND[l.rb].n)} here, its real spot, for +${REAL_BONUS*100}% sales.</div>`:""}
   <div class="chips"><button class="chip" data-filter="all" aria-pressed="${view.filter==="all"}">All</button>
    ${cats.map(c=>`<button class="chip" style="--c:var(--cat-${c})" data-filter="${c}" aria-pressed="${view.filter===c}">${esc(CATS[c])}</button>`).join("")}</div>
   <div class="list">${rows}</div>`);
@@ -1514,7 +1675,7 @@ function storeSide(l,s){
   const uc=s.lvl<5?upCost(b,s.lvl):0,next=s.lvl<5?storeCore(id,s.lvl+1)*condMult(id):0;
   const h=happyOf(id),hc=h>=55?"var(--olive)":h>=UNHAPPY?"var(--coin-deep)":"var(--alert)";
   return panel(lotEye(l),esc(b.n),`<div style="--c:${c}"><span class="tag">${esc(CATS[b.cat])}</span>
-   <div class="meta" style="margin-top:6px">${esc(T.n+" · "+sq(T.sq))}</div>${l.real?`<div class="meta">In real life: ${esc(l.real)}</div>`:""}</div>
+   <div class="meta" style="margin-top:6px">${esc(T.n+" · "+sq(l.sq))}</div>${l.real?`<div class="meta">In real life: ${esc(l.real)}</div>`:""}</div>
   <div style="display:grid;gap:6px"><h3>Store level ${s.lvl} of 5</h3>${lvlBar(s.lvl,c)}</div>
   <div style="display:grid;gap:6px"><h3>Tenant mood · ${h>=80?"Thrilled":h>=55?"Happy":h>=UNHAPPY?"Content":"Unhappy"} · ${h}</h3><div class="meter" style="--w:${h}%;--c:${hc}"><i></i></div>
    <div class="meta">${s.bad?`Unhappy for ${s.bad} day${s.bad>1?"s":""}. At 4 this tenant leaves.`:"Happy tenants pay up to 10% more. Style, level, shopper mood and rent level all move it."}</div></div>
@@ -1578,7 +1739,7 @@ document.addEventListener("click",e=>{
   if(d.svcdown){const lv=S.svc[d.svcdown];if(lv<=0)return;S.svc[d.svcdown]=lv-1;changed();return}
   if(d.rent!=null){S.rent=+d.rent;changed();return}
   if(d.claim){const g=GOALS.find(x=>x.id===d.claim);if(!g||S.goals[g.id]!==1)return;S.goals[g.id]=2;S.cash+=g.reward;toast("Goal claimed: "+g.n+". +"+money(g.reward)+".","good");changed();return}
-  if(d.zoom){const f=d.zoom==="in"?1.35:d.zoom==="out"?1/1.35:0;if(!f){cam={s:1,tx:0,ty:0}}else{const cx=VW/2,cy=VH/2,ns=Math.min(3.5,Math.max(1,cam.s*f));cam.tx=cx-(cx-cam.tx)*ns/cam.s;cam.ty=cy-(cy-cam.ty)*ns/cam.s;cam.s=ns}clampCam();setCam();return}
+  if(d.zoom){const f=d.zoom==="in"?1.35:d.zoom==="out"?1/1.35:0;if(!f){frameCam()}else{const cx=VW/2,cy=VH/2,ns=Math.min(3.5,Math.max(1,cam.s*f));cam.tx=cx-(cx-cam.tx)*ns/cam.s;cam.ty=cy-(cy-cam.ty)*ns/cam.s;cam.s=ns}clampCam();setCam();return}
   if(d.lot){view.lot=view.lot===d.lot?null:d.lot;view.confirm=null;hideTip();markSel();renderSide();return}
   if(d.level){view.level=d.level;view.inside=null;view.lot=null;view.slot=null;view.confirm=null;renderAll();return}
   if(d.filter){view.filter=d.filter;renderSide();return}

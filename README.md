@@ -23,7 +23,7 @@ The `create-integration` workflow creates `integration` from `main` the first ti
 
 ## Layout
 
-- `index.html` the game (v0.5)
+- `index.html` the game (v0.6)
 - `scripts/serve.js` local static server
 - `scripts/check.js` CI check (file loads, inline scripts parse)
 
