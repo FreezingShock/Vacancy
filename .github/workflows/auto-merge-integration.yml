@@ -1,0 +1,30 @@
+name: Auto-merge into integration
+# Merges PRs that target `integration` once the CI check passes.
+# Nothing here ever touches main.
+on:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  merge:
+    if: >
+      github.event.workflow_run.event == 'pull_request' &&
+      github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Squash-merge PRs whose base is integration
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          SHA: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          prs=$(gh api "repos/$REPO/commits/$SHA/pulls" --jq '.[] | select(.state=="open" and .base.ref=="integration" and .draft==false) | .number')
+          for pr in $prs; do
+            echo "Merging #$pr into integration"
+            gh pr merge "$pr" --repo "$REPO" --squash
+          done

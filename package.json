@@ -1,0 +1,10 @@
+{
+  "name": "vacancy",
+  "version": "0.5.0",
+  "private": true,
+  "description": "Vacancy: A Topanga Tycoon",
+  "scripts": {
+    "start": "node scripts/serve.js",
+    "check": "node scripts/check.js"
+  }
+}
