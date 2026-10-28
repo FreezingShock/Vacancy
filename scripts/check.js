@@ -12,3 +12,9 @@ for (const m of html.matchAll(/<script(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/
   count++;
 }
 console.log(`ok: index.html parsed, ${count} inline script(s)`);
+
+// People module: syntax check and headless simulation test.
+if (fs.existsSync(path.join(__dirname, '..', 'src', 'people.js'))) {
+  new vm.Script(fs.readFileSync(path.join(__dirname, '..', 'src', 'people.js'), 'utf8'));
+  require('./test-people.js');
+}
