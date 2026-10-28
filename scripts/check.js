@@ -13,6 +13,16 @@ for (const m of html.matchAll(/<script(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/
 }
 console.log(`ok: index.html parsed, ${count} inline script(s)`);
 
+// Plain scripts and ES modules under src/ must parse too.
+const src = path.join(__dirname, '..', 'src');
+if (fs.existsSync(src)) {
+  for (const f of fs.readdirSync(src).filter((n) => n.endsWith('.js'))) {
+    const code = fs.readFileSync(path.join(src, f), 'utf8').replace(/^\s*import\s[^\n]*$/gm, '').replace(/^(\s*)export\s+default\s+/gm, '$1').replace(/^(\s*)export\s+/gm, '$1');
+    new vm.Script(code);
+    console.log('ok: src/' + f + ' parsed');
+  }
+}
+
 // People module: syntax check and headless simulation test.
 if (fs.existsSync(path.join(__dirname, '..', 'src', 'people.js'))) {
   new vm.Script(fs.readFileSync(path.join(__dirname, '..', 'src', 'people.js'), 'utf8'));
