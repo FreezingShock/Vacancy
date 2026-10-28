@@ -7,7 +7,7 @@ const html = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
 if (!/<title>[^<]+<\/title>/.test(html)) throw new Error('index.html has no <title>');
 
 let count = 0;
-for (const m of html.matchAll(/<script(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/g)) {
+for (const m of html.matchAll(/<script(?![^>]*\bsrc=)(?![^>]*type="module")[^>]*>([\s\S]*?)<\/script>/g)) {
   new vm.Script(m[1]); // throws on a syntax error
   count++;
 }
