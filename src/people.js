@@ -618,9 +618,11 @@
     const mat = new THREE.MeshLambertMaterial({ color: 0xffffff });
     function inst(geo, m, colored) {
       const mesh = new THREE.InstancedMesh(geo, m || mat, cap);
-      mesh.frustumCulled = false; mesh.count = 0;
+      mesh.frustumCulled = false;
       mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+      // allocate the color buffer for every slot before shrinking count (older three sizes it from count)
       if (colored !== false) { mesh.setColorAt(0, new THREE.Color(1, 1, 1)); mesh.instanceColor.setUsage(THREE.DynamicDrawUsage); }
+      mesh.count = 0;
       if (scene) scene.add(mesh);
       return mesh;
     }
@@ -637,7 +639,7 @@
       armL: inst(gArm), armR: inst(gArm), bag: inst(gBag), shadow: inst(gShadow, mShadow, false)
     };
     const all = Object.keys(mesh).map(k => mesh[k]);
-    const seen = new Uint32Array(cap), col = new THREE.Color(), w = [0, 0, 0];
+    const seen = new Uint32Array(cap).fill(0xFFFFFFFF), col = new THREE.Color(), w = [0, 0, 0];
 
     function paint(i) {
       const L = crowd.look, sh = SHIRT[L.shirt[i]], pn = PANTS[L.pants[i]];
