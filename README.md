@@ -26,3 +26,5 @@ The `create-integration` workflow creates `integration` from `main` the first ti
 - `index.html` the game (v0.5)
 - `scripts/serve.js` local static server
 - `scripts/check.js` CI check (file loads, inline scripts parse)
+
+PRs into `integration` merge themselves once CI is green.
