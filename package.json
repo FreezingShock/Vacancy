@@ -5,6 +5,7 @@
   "description": "Vacancy: A Topanga Tycoon",
   "scripts": {
     "start": "node scripts/serve.js",
-    "check": "node scripts/check.js"
+    "check": "node scripts/check.js",
+    "test:people": "node scripts/test-people.js"
   }
 }
