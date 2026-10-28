@@ -1,0 +1,21 @@
+name: Create integration branch
+# One-time bootstrap: if `integration` does not exist yet, branch it from main.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  create:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          if git ls-remote --exit-code --heads origin integration >/dev/null; then
+            echo "integration already exists"
+          else
+            git push origin HEAD:refs/heads/integration
+          fi
