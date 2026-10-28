@@ -475,6 +475,7 @@ footer.foot{font-family:var(--f-mono);font-size:11px;color:var(--ink-3);display:
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="src/mall-data.js"></script>
 <script src="src/mall-view.js"></script>
+<script src="src/people.js"></script>
 <script>
 (function(){
 "use strict";
@@ -1389,7 +1390,7 @@ document.addEventListener("visibilitychange",()=>{
   if(document.hidden){hiddenAt=Date.now();try{localStorage.setItem(KEY,JSON.stringify({...S,savedAt:Date.now()}))}catch(e){}}
   else if(hiddenAt){const away=(Date.now()-hiddenAt)/1000;hiddenAt=0;last=performance.now();awayCredit(away,true);recompute();renderAll()}
 });
-if(/[?&]debug/.test(location.search))window.__tt={get S(){return S},get view(){return view},get stats(){return {rate,mood,stars,score,traffic,mix,moodMult,moodF,INC}},tick,settle,recompute,changed,renderAll,B,LOT,LOTS,TIER_AT,STAR_AT,DAY,GOALS,adopt,upkeep,happyOf};
+if(/[?&]debug/.test(location.search))window.__tt={get VIEW(){return VIEW},get CROWD(){return CROWD},get S(){return S},get view(){return view},get stats(){return {rate,mood,stars,score,traffic,mix,moodMult,moodF,INC}},tick,settle,recompute,changed,renderAll,B,LOT,LOTS,TIER_AT,STAR_AT,DAY,GOALS,adopt,upkeep,happyOf};
 })();
 </script>
 
